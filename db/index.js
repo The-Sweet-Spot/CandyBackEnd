@@ -6,13 +6,13 @@ let client
 if (process.env.user && process.env.password ) {
     client = new pg.Client({
         host: 'localhost',
-        database: 'DATABASE NAME',
+        database: 'The-Sweet-Spot-dev',
         port: 5432,
         user: process.env.user,
         password: process.env.password,
     });
 } else {
-    client = new pg.Client('postgres://localhost:5432/DATABASENAME');
+    client = new pg.Client('postgres://localhost:5432/The-Sweet-Spot-dev');
 }
 
 module.exports = {
