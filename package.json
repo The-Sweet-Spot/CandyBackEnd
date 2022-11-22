@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "thesweetspotbackend",
   "version": "1.0.0",
   "description": "# All installs are up",
@@ -8,6 +9,14 @@
     "seed": "nodemon ./db/seed.js",
     "start": "node index.js",
     "start:dev":"nodemon index.js"
+=======
+  "name": "capstone_project",
+  "version": "1.0.0",
+  "description": "I'm in",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> 0ccf0f81e0ba6891f7ae0b589413733c700ae856
   },
   "repository": {
     "type": "git",
@@ -23,6 +32,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
+<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.8.0"
@@ -30,5 +40,12 @@
   "devDependencies": {
     "express": "^4.18.2",
     "nodemon": "^2.0.20"
+=======
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0"
+>>>>>>> 0ccf0f81e0ba6891f7ae0b589413733c700ae856
   }
 }
