@@ -10,7 +10,7 @@ async function createCandy({name, price, description, stock}) {
         `, [name, price, description, stock]);
         return candy;
     } catch (error) {
-        console.error(error.detail)
+        console.error(error)
     }
 }
 async function getAllCandy() {

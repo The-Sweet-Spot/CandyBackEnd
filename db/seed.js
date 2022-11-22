@@ -45,7 +45,7 @@ async function createTables() {
             stock INTEGER,
             price NUMERIC,
             description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE NOT NULL,
+            image VARCHAR(255) UNIQUE,
             "candyId" INTEGER REFERENCES candy(id)
         );
         CREATE TABLE baked_goods(
@@ -145,43 +145,44 @@ async function createInitialBakery () {
 async function createInitialCandy() {
     console.log("Creating initial candy")
     try {
-        createCandy({
+        await createCandy({
             name: "lolipops",
             stock: "1000",
             description: "lick till its gone",
             price: 5.50
         });
-        createCandy({
+        await createCandy({
             name: "gum drops",
             stock: "1000",
             description: "Its not a jaw breaker but dont bite",
             price: 5.50
         });
-        createCandy({
+        await createCandy({
             name: "Caramel Nips",
             stock: "1000",
             description: "Suck it good",
             price: 5.50
         });
-        createCandy({
+        await createCandy({
             name: "Gummy Bears",
             stock: "1000",
             description: "They are headless if you chew",
             price: 5.50
         });
-        createCandy({
+        await createCandy({
             name: "Jaw Breaker",
             stock: "1000",
             description: "Lick! DO NOT BITE!",
             price: 5.50
         });
+        
         console.log("Finished creating initial candy")
     } catch (error) {
         console.error(error.detail)
     }
 }
 
-Method: testDB
+
 async function testDB() {
     try {
         console.log("calling getAllUsers")
@@ -201,7 +202,7 @@ async function testDB() {
     }
 }
 
-Method: rebuildDB
+
 async function rebuildDB() {
     try {
     client.connect();
