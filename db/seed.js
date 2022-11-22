@@ -1,7 +1,7 @@
 // Step 1: Import Client & Exports
 const { create } = require('domain');
 const { client } = require('./index')
-
+const { createUser, getAllUsers } = require('./Users')
 // Imports
 // const {} = require('./Bakery');
 
@@ -75,68 +75,58 @@ async function createTables() {
         }
     }
 
-//     // Method: createInitialUsers
-// async function createInitialUsers() {
-//     console.log("Starting to create users:")
-//     try {
-//         await createUser({
-//             username: 'dalron',
-//             password: 'dalron',
-//             first_name: 'Dalron',
-//             last_name: 'Dalron',
-//             email: 'dalron@gmail.com',
-//             is_active: true,
-//         });
-//         await createUser({
-//             username: 'john',
-//             password: 'john',
-//             first_name: 'John',
-//             last_name: 'John',
-//             email: 'john@gmail.com',
-//             is_active: true,
-//         });
-//         await createUser({
-//             username: 'marc',
-//             password: 'marc',
-//             first_name: 'Marc',
-//             last_name: 'Marc',
-//             email: 'marc@gmail.com',
-//             is_active: true,
-//         });
-//         await createUser({
-//             username: 'tori',
-//             password: 'tori',
-//             first_name: 'Tori',
-//             last_name: 'Tori',
-//             email: 'tori@gmail.com',
-//             is_active: true,
-//         });
-//         console.log("Finished creating users:");
-//     } catch (error) {
-//         console.error("Error when creating users:");
-//         console.log(error.detail);
-//     }
-// };
+    // Method: createInitialUsers
+async function createInitialUsers() {
+    console.log("Starting to create users:")
+    try {
+        await createUser({
+            username: 'dalron',
+            password: 'dalron',
+            email: 'dalron@gmail.com',
+            is_active: true,
+        });
+        await createUser({
+            username: 'john',
+            password: 'john',
+            email: 'john@gmail.com',
+        });
+        await createUser({
+            username: 'marc',
+            password: 'marc',
+            email: 'marc@gmail.com',
+        });
+        await createUser({
+            username: 'tori',
+            password: 'tori',
+            email: 'tori@gmail.com',
+        });
+        console.log("Finished creating users:");
+    } catch (error) {
+        console.error("Error when creating users:");
+        console.log(error);
+    }
+};
 
-// Method: testDB
-// async function testDB() {
-//     try {
-//         const result = await client.query(`SELECT * FROM users;`);
- 
-//         console.log(result);
-//     } catch (error) {
-//         console.log("Error during testDB");
-//         console.log(error.detail);
-//     }
-//   }
+Method: testDB
+async function testDB() {
+    try {
+        console.log("calling getAllUsers")
+        const user = await getAllUsers();
+        
+        console.log("results ", user)
+    } catch (error) {
+        console.log("Error during testDB");
+        console.log(error.detail);
+    }
+  }
 
-// Method: rebuildDB
+Method: rebuildDB
 async function rebuildDB() {
     try {
       client.connect();
       await dropTables();
       await createTables();
-    //   await testDB();
+      await createInitialUsers();
     } catch (error) {
       console.log("Error during rebuildDB:")
       console.log(error.detail);
@@ -144,6 +134,6 @@ async function rebuildDB() {
 }
 
 rebuildDB()
-//   .then(testDB)
+  .then(testDB)
   .catch(console.error)
   .finally(() => client.end());
