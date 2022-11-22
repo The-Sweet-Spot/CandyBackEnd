@@ -32,44 +32,46 @@ async function createTables() {
         await client.query(`
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-            username VARCHAR (255) UNIQUE NOT NULL,
-            password VARCHAR (255) NOT NULL,
-            email VARCHAR (255) UNIQUE NOT NULL,
-            is_active BOOLEAN DEFAULT true
-        ;)
+            username VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            "is_active" BOOLEAN DEFAULT true
+        );
         CREATE TABLE candy(
             id SERIAL PRIMARY KEY,
-            name VARCHAR (255) UNIQUE NOT NULL,
+            name VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR (255) NOT NULL,
-            image VARCHAR (255) UNIQUE NOT NULL,
+            description VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE NOT NULL,
             "candyId" INTEGER REFERENCES candy(id)
-         ;)
+        );
         CREATE TABLE baked_goods(
             id SERIAL PRIMARY KEY,
-            name VARCHAR (255) UNIQUE NOT NULL,
+            name VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR (255) NOT NULL,
-            image VARCHAR (255) UNIQUE NOT NULL,
-            "bakedId" INTEGER REFERENCES baked(id)
-        ;)
-        CREATE TABLE cart_items(
-            cart_id INTEGER REFERENCES carts(id),
-            product_id INTEGER REFERENCES product(id),
-            cart_item_id INTEGER REFERENCES cart_item(id),
-            price_bought_at NUMBERIC
-        ;)
+            description VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE NOT NULL,
+            "bakedId" INTEGER REFERENCES baked_goods(id)
+        );
         CREATE TABLE cart(
+            id SERIAL PRIMARY KEY,
             "usersId" SERIAL,
-            "cart_id" SERIAL    
-        ;)`);   
+            "cartId" SERIAL    
+        );
+        CREATE TABLE cart_items(
+            id SERIAL PRIMARY KEY,
+            "cart_id" INTEGER REFERENCES cart(id),
+            "cart_item_id" INTEGER REFERENCES cart_items(id),
+            "price_bought_at" NUMERIC,
+            UNIQUE ("cart_id", "cart_item_id")
+        );`);   
 
           console.log('Finished building tables!');
         } catch (error) {
           console.error('Error building tables!');
-          console.log(error.detail);
+          console.log(error);
         }
     }
 
