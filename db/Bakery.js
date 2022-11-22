@@ -59,7 +59,7 @@ async function createBakedGoods ({name, description, stock ,price}) {
     }
 }
 
-module.export = {
+module.exports = {
     getAllBakedGoods,
     getAllBakedGoodsById,
     getAllBakedGoodsByName,
