@@ -2,7 +2,8 @@
 const { create } = require('domain');
 const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
-const { createBakedGoods, getAllBakedGoods } = require('./Bakery') 
+const { createBakedGoods, getAllBakedGoods } = require('./Bakery'); 
+const { createCandy, getAllCandy } = require('./Candy');
 // Imports
 // const {} = require('./Bakery');
 
@@ -141,38 +142,81 @@ async function createInitialBakery () {
         console.log(error)
     }
 };
+async function createInitialCandy() {
+    console.log("Creating initial candy")
+    try {
+        createCandy({
+            name: "lolipops",
+            stock: "1000",
+            description: "lick till its gone",
+            price: 5.50
+        });
+        createCandy({
+            name: "gum drops",
+            stock: "1000",
+            description: "Its not a jaw breaker but dont bite",
+            price: 5.50
+        });
+        createCandy({
+            name: "Caramel Nips",
+            stock: "1000",
+            description: "Suck it good",
+            price: 5.50
+        });
+        createCandy({
+            name: "Gummy Bears",
+            stock: "1000",
+            description: "They are headless if you chew",
+            price: 5.50
+        });
+        createCandy({
+            name: "Jaw Breaker",
+            stock: "1000",
+            description: "Lick! DO NOT BITE!",
+            price: 5.50
+        });
+        console.log("Finished creating initial candy")
+    } catch (error) {
+        console.error(error.detail)
+    }
+}
 
 Method: testDB
 async function testDB() {
     try {
         console.log("calling getAllUsers")
         const user = await getAllUsers();
-        
         console.log("results ", user)
+
         console.log("calling getbakerygoods")
         const bakedGoods = await getAllBakedGoods();
         console.log('results', bakedGoods)
+
+        console.log("Calling get all Candy")
+        const candyGoods = await getAllCandy();
+        console.log("Results", candyGoods)
     } catch (error) {
         console.log("Error during testDB");
         console.log(error.detail);
     }
-  }
+}
 
 Method: rebuildDB
 async function rebuildDB() {
     try {
-      client.connect();
-      await dropTables();
-      await createTables();
-      await createInitialUsers();
-      await createInitialBakery();
+    client.connect();
+    await dropTables();
+    await createTables();
+    await createInitialUsers();
+    await createInitialBakery();
+    await createInitialCandy();
     } catch (error) {
-      console.log("Error during rebuildDB:")
-      console.log(error.detail);
+    console.log("Error during rebuildDB:")
+    console.log(error.detail);
     }
 }
 
 rebuildDB()
-  .then(testDB)
-  .catch(console.error)
-  .finally(() => client.end());
+    .then(testDB)
+    .catch(console.error)
+    .finally(() => client.end());
