@@ -2,6 +2,7 @@
 const { create } = require('domain');
 const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
+const { createBakedGoods, getAllBakedGoods } = require('./Bakery') 
 // Imports
 // const {} = require('./Bakery');
 
@@ -52,7 +53,7 @@ async function createTables() {
             stock INTEGER,
             price NUMERIC,
             description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE NOT NULL,
+            image VARCHAR(255) UNIQUE,
             "bakedId" INTEGER REFERENCES baked_goods(id)
         );
         CREATE TABLE cart(
@@ -107,6 +108,40 @@ async function createInitialUsers() {
     }
 };
 
+async function createInitialBakery () {
+    console.log("Starting to create users:")
+    try {
+        await createBakedGoods({
+            name: 'cake',
+            stock:'1000',
+            price:'10000',
+            description: 'dont eat'
+        });
+        await createBakedGoods({
+            name: 'cupcake',
+            stock:'2000',
+            price:'20000',
+            description: 'dont eat pt2'
+        });
+        await createBakedGoods({
+            name: 'cake',
+            stock:'3000',
+            price:'30000',
+            description: 'dont eat pt3'
+        });
+        await createBakedGoods({
+            name: 'cake',
+            stock:'4000',
+            price:'40000',
+            description: 'dont eat pt4'
+        });
+        console.log("Finished creating bakery:");
+    } catch (error) {
+        console.error("Error when creating bakery");
+        console.log(error)
+    }
+};
+
 Method: testDB
 async function testDB() {
     try {
@@ -114,6 +149,9 @@ async function testDB() {
         const user = await getAllUsers();
         
         console.log("results ", user)
+        console.log("calling getbakerygoods")
+        const bakedGoods = await getAllBakedGoods();
+        console.log('results', bakedGoods)
     } catch (error) {
         console.log("Error during testDB");
         console.log(error.detail);
@@ -127,6 +165,7 @@ async function rebuildDB() {
       await dropTables();
       await createTables();
       await createInitialUsers();
+      await createInitialBakery();
     } catch (error) {
       console.log("Error during rebuildDB:")
       console.log(error.detail);
