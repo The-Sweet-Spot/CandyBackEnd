@@ -1,3 +1,3 @@
 # We are up
 
-Dalron is up
+# All installs are up
