@@ -1,14 +1,14 @@
 const { client } = require("./index");
 
 
-async function createUser({username, password}) {
+async function createUser({username, password, email}) {
     try {
         const { rows: [user] } = await client.query(`
-            INSERT INTO users(username, password)
-            VALUES($1, $2)
+            INSERT INTO users(username, password, email)
+            VALUES($1, $2, $3)
             ON CONFLICT (username) DO NOTHING
             RETURNING *;
-        `, [username, password]);
+        `, [username, password, email]);
 
         return user
     } catch (error) {
@@ -16,12 +16,12 @@ async function createUser({username, password}) {
     }
 }
 
-async function getAllUsers({ username, password}){
+async function getAllUsers(){
     try {
         const { rows } = await client.query(`
-        SELECT id, username, password
+        SELECT id, username, password, email
         FROM users;
-        `, [username, password]);
+        `,);
         
         return rows;
     } catch (error) {
@@ -32,10 +32,10 @@ async function getAllUsers({ username, password}){
 async function getUserById(userId) {
     try {
         const { rows: [ user ] } = await client.query(`
-        SELECT id, username, password
+        SELECT id, username
         FROM users
-        WHERE id=${ userId }
-        `);
+        WHERE id= $1;
+        `,[userId]);
 
         if (!user) {
             return null
@@ -46,13 +46,13 @@ async function getUserById(userId) {
     }
 }
 
-async function getUserByUsername(userName){
+async function getUserByUsername(username){
     try {
         const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
         WHERE username=$1;
-        `, [userName])
+        `, [username])
         return user
     } catch (error) {
         console.log(error)
