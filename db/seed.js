@@ -40,34 +40,29 @@ async function createTables() {
             "is_active" BOOLEAN DEFAULT true
         );
         CREATE TABLE candy(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) UNIQUE NOT NULL,
+            "candyId" SERIAL PRIMARY KEY,
+            "candyName" VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE,
-            "candyId" INTEGER REFERENCES candy(id)
+            "candyDescription" VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE
         );
         CREATE TABLE baked_goods(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) UNIQUE NOT NULL,
+            "bakedId" SERIAL PRIMARY KEY,
+            "bakedGoodsName" VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE,
-            "bakedId" INTEGER REFERENCES baked_goods(id)
+            "bakedDescription" VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE
         );
         CREATE TABLE cart(
-            id SERIAL PRIMARY KEY,
-            "usersId" SERIAL,
-            "cartId" SERIAL    
+            "cartId" SERIAL PRIMARY KEY,
+            "usersId" INTEGER REFERENCES users(id) 
         );
         CREATE TABLE cart_items(
-            id SERIAL PRIMARY KEY,
-            "cart_id" INTEGER REFERENCES cart(id),
-            "cart_item_id" INTEGER REFERENCES cart_items(id),
-            "price_bought_at" NUMERIC,
-            UNIQUE ("cart_id", "cart_item_id")
+            "cartItemsId" SERIAL PRIMARY KEY,
+            "cart_id" INTEGER REFERENCES cart("cartId"),
+            "price_bought_at" NUMERIC
         );`);   
 
         console.log('Finished building tables!');
