@@ -4,6 +4,7 @@ const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
 const { createBakedGoods, getAllBakedGoods } = require('./Bakery'); 
 const { createCandy, getAllCandy } = require('./Candy');
+const { updateCart, createCart } = require('./Cart');
 // Imports
 // const {} = require('./Bakery');
 
@@ -40,34 +41,29 @@ async function createTables() {
             "is_active" BOOLEAN DEFAULT true
         );
         CREATE TABLE candy(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) UNIQUE NOT NULL,
+            "candyId" SERIAL PRIMARY KEY,
+            "candyName" VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE,
-            "candyId" INTEGER REFERENCES candy(id)
+            "candyDescription" VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE
         );
         CREATE TABLE baked_goods(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) UNIQUE NOT NULL,
+            "bakedId" SERIAL PRIMARY KEY,
+            "bakedGoodsName" VARCHAR(255) UNIQUE NOT NULL,
             stock INTEGER,
             price NUMERIC,
-            description VARCHAR(255) NOT NULL,
-            image VARCHAR(255) UNIQUE,
-            "bakedId" INTEGER REFERENCES baked_goods(id)
+            "bakedDescription" VARCHAR(255) NOT NULL,
+            image VARCHAR(255) UNIQUE
         );
         CREATE TABLE cart(
-            id SERIAL PRIMARY KEY,
-            "usersId" SERIAL,
-            "cartId" SERIAL    
+            "cartId" SERIAL PRIMARY KEY,
+            "usersId" INTEGER REFERENCES users(id) 
         );
         CREATE TABLE cart_items(
-            id SERIAL PRIMARY KEY,
-            "cart_id" INTEGER REFERENCES cart(id),
-            "cart_item_id" INTEGER REFERENCES cart_items(id),
-            "price_bought_at" NUMERIC,
-            UNIQUE ("cart_id", "cart_item_id")
+            "cartItemsId" SERIAL PRIMARY KEY,
+            "cart_id" INTEGER REFERENCES cart("cartId"),
+            "price_bought_at" NUMERIC
         );`);   
 
         console.log('Finished building tables!');
@@ -182,6 +178,16 @@ async function createInitialCandy() {
     }
 }
 
+// async function createInitialCart() {
+//     try {
+//         console.log("Starting to createInitialCart: ")
+
+        
+//     } catch (error) {
+//         console.error(error.detail)
+//     }
+// }
+
 
 async function testDB() {
     try {
@@ -196,6 +202,10 @@ async function testDB() {
         console.log("Calling get all Candy")
         const candyGoods = await getAllCandy();
         console.log("Results", candyGoods)
+
+        console.log("Calling create Carts: ")
+        const newCart = await createCart();
+        console.log("Results", newCart)
     } catch (error) {
         console.log("Error during testDB");
         console.log(error.detail);
@@ -211,6 +221,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialBakery();
     await createInitialCandy();
+
     } catch (error) {
     console.log("Error during rebuildDB:")
     console.log(error.detail);

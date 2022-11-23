@@ -1,13 +1,13 @@
 const { client } = require('./index')
 
-async function createCandy({name, price, description, stock}) {
+async function createCandy({candyName, price, candyDescription, stock}) {
     try {
         const { rows: [candy] } = await client.query(`
-        INSERT INTO candy(name, price, description, stock)
+        INSERT INTO candy("candyName", price, "candyDescription", stock)
         VALUES($1, $2, $3, $4)
         ON CONFLICT (name) DO NOTHING
         RETURNING *;
-        `, [name, price, description, stock]);
+        `, [candyName, price, candyDescription, stock]);
         return candy;
     } catch (error) {
         console.error(error)
@@ -35,13 +35,13 @@ async function getCandyById(candyId) {
         console.error(error.detail)
     }
 }
-async function getCandyByName(name) {
+async function getCandyByName(candyName) {
     try {
         const { rows: [candy] } = await client.query(`
         SELECT *
         FROM candy
-        WHERE name=$1;
-        `, [name]);
+        WHERE "candyName"=$1;
+        `, [candyName]);
         return candy;
     } catch (error) {
         console.error(error.detail)
