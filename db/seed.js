@@ -110,28 +110,28 @@ async function createInitialBakery () {
     console.log("Starting to create users:")
     try {
         await createBakedGoods({
-            name: 'cake',
+            bakedGoodsName: 'cake',
             stock:'1000',
             price:'10000',
-            description: 'dont eat'
+            bakedDescription: 'dont eat'
         });
         await createBakedGoods({
-            name: 'cupcake',
+            bakedGoodsName: 'cupcake',
             stock:'2000',
             price:'20000',
-            description: 'dont eat pt2'
+            bakedDescription: 'dont eat pt2'
         });
         await createBakedGoods({
-            name: 'cake',
+            bakedGoodsName: 'cake',
             stock:'3000',
             price:'30000',
-            description: 'dont eat pt3'
+            bakedDescription: 'dont eat pt3'
         });
         await createBakedGoods({
-            name: 'cake',
+            bakedGoodsName: 'cake',
             stock:'4000',
             price:'40000',
-            description: 'dont eat pt4'
+            bakedDescription: 'dont eat pt4'
         });
         console.log("Finished creating bakery:");
     } catch (error) {
@@ -143,33 +143,33 @@ async function createInitialCandy() {
     console.log("Creating initial candy")
     try {
         await createCandy({
-            name: "lolipops",
+            candyName: "lolipops",
             stock: "1000",
-            description: "lick till its gone",
+            candyDescription: "lick till its gone",
             price: 5.50
         });
         await createCandy({
-            name: "gum drops",
+            candyName: "gum drops",
             stock: "1000",
-            description: "Its not a jaw breaker but dont bite",
+            candyDescription: "Its not a jaw breaker but dont bite",
             price: 5.50
         });
         await createCandy({
-            name: "Caramel Nips",
+            candyName: "Caramel Nips",
             stock: "1000",
-            description: "Suck it good",
+            candyDescription: "Suck it good",
             price: 5.50
         });
         await createCandy({
-            name: "Gummy Bears",
+            candyName: "Gummy Bears",
             stock: "1000",
-            description: "They are headless if you chew",
+            candyDescription: "They are headless if you chew",
             price: 5.50
         });
         await createCandy({
-            name: "Jaw Breaker",
+            candyName: "Jaw Breaker",
             stock: "1000",
-            description: "Lick! DO NOT BITE!",
+            candyDescription: "Lick! DO NOT BITE!",
             price: 5.50
         });
         
