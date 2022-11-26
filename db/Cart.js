@@ -1,13 +1,13 @@
 const { client } = require("./index") 
 
 // FN: createCart - Finished
-async function createCart ( { userId, cartId } ) {
+async function createCart ( { userId } ) {
     try {
         const {rows: [cart] } = await client.query(`
-            INSERT INTO cart("userId", "cartId")
-            VALUES ($1, $2)
+            INSERT INTO cart("userId")
+            VALUES ($1)
             RETURNING *;
-            `, [userId, cartId]
+            `, [userId]
         );
         return cart 
     } catch (error) {
@@ -30,6 +30,8 @@ async function updateCart (id, fields = {} ) {
             UPDATE cart
             SET ${setString}
             WHERE id=${id}
+            AND UPDATE cart
+            SET 
             RETURNING *;
                  
         `,Object.values(fields))
@@ -43,8 +45,77 @@ async function updateCart (id, fields = {} ) {
         console.log(error)
     }
 }
+ // Updates: fields 
+    // rewirte so the cartStatus is always set to be able to be updated;  active, etc
+
+// FN: updateCartStatus
+async function updateCartStatus({ userId }) {
+    try {
+      const {rows: [cart]} = await client.query(`
+          UPDATE cart
+          SET cartStatus = true
+          WHERE carts.user_id= $1
+          RETURNING *;
+        `,
+        [userId]
+      );
+
+      return cart;
+    } catch (error) {
+      console.error('Error Updating Cart Status! ');
+      console.log(error);
+    }
+  }
 
 module.exports = {
     createCart,
     updateCart,
+    updateCartStatus
 };
+
+
+
+
+
+// Scratch 
+async function updateCart ({userId, cartStatus} ) {
+    if (condition) {
+        try {
+            const {rows: [cart] } = await client.query(`
+            UPDATE cart
+            SET candyID = 1
+            WHERE cart.userId= $1
+            AND SET bakedId = 0
+            WHERE cart.userId= $1
+            AND SET cartStatus = 'active'
+            RETURNING*;            
+            `,
+            [userId, cartStatus]
+
+            );
+            return cart;
+        } catch (error) {
+            console.error('Error Updating Cart Candy Purchase: ');
+            console.log(error);
+        }
+    }else {
+        try {
+            const {rows: [cart] } = await client.query(`
+            UPDATE cart
+            SET candyID = 0
+            WHERE cart.userId= $1
+            AND SET bakedId = 1
+            WHERE cart.userId= $1
+            AND SET cartStatus = 'active'
+            RETURNING*;            
+            `,
+            [userId, cartStatus]
+
+            );
+            return cart;
+        } catch (error) {
+            console.error('Error Updating Cart BakedGood Purchase: ');
+            console.log(error);
+        }
+    }
+}

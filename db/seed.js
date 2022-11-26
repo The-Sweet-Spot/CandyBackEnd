@@ -58,7 +58,8 @@ async function createTables() {
         );
         CREATE TABLE cart(
             "cartId" SERIAL PRIMARY KEY,
-            "usersId" INTEGER REFERENCES users(id) 
+            "usersId" INTEGER REFERENCES users(id),
+            "cartStatus" VARCHAR (255) DEFAULT 'active' 
         );
         CREATE TABLE cart_items(
             "cartItemsId" SERIAL PRIMARY KEY,
