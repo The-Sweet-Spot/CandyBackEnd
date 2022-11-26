@@ -5,7 +5,7 @@ async function createCandy({candyName, price, candyDescription, stock}) {
         const { rows: [candy] } = await client.query(`
         INSERT INTO candy("candyName", price, "candyDescription", stock)
         VALUES($1, $2, $3, $4)
-        ON CONFLICT (name) DO NOTHING
+        ON CONFLICT ("candyName") DO NOTHING
         RETURNING *;
         `, [candyName, price, candyDescription, stock]);
         return candy;
