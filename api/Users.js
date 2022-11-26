@@ -1,10 +1,11 @@
-const express = require("express");
+const express = require('express');
 const usersRouter = express.Router();
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
-require("dotenv").config();
-
-const { getAllUsers, getUserByUsername, createUser } = require("../db");
+require('dotenv').config();
+const { getAllUsers,
+        getUserByUsername,
+        createUser } = require('../db/Users');
 
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /users");
@@ -20,7 +21,7 @@ usersRouter.get("/", async (req, res) => {
   });
 });
 
-usersRouter.post("/api/users/login", async (req, res, next) => {
+usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -44,8 +45,8 @@ usersRouter.post("/api/users/login", async (req, res, next) => {
           expiresIn: "1w",
         }
       );
-
-      res.send({ message: "you're logged in!", newToken });
+        console.log(newToken)
+      res.send({ message: "you're logged in!", token: newToken });
     } else {
       next({
         name: "LoginError",
@@ -58,8 +59,8 @@ usersRouter.post("/api/users/login", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/api/users/register", async (req, res, next) => {
-  const { username, password } = req.body;
+usersRouter.post("/register", async (req, res, next) => {
+  const { username, password, email } = req.body;
 
   try {
     const _user = await getUserByUsername(username);
@@ -74,14 +75,15 @@ usersRouter.post("/api/users/register", async (req, res, next) => {
     const user = await createUser({
       username,
       password,
+      email
     });
 
     const token = jwt.sign(
       {
         id: user.id,
-        username,
+        username
       },
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       {
         expiresIn: "1w",
       }
@@ -89,7 +91,7 @@ usersRouter.post("/api/users/register", async (req, res, next) => {
 
     res.send({
       message: "thank you for signing up",
-      token,
+      token
     });
   } catch ({ name, message }) {
     next({ name, message });
@@ -97,7 +99,7 @@ usersRouter.post("/api/users/register", async (req, res, next) => {
 });
 
 
-usersRouter.get('/api/users/me', async (req, res, next) => {
+usersRouter.get('/me', async (req, res, next) => {
   try {
     if (!req.user) {
       next({
@@ -117,7 +119,7 @@ usersRouter.get('/api/users/me', async (req, res, next) => {
 
 
 
-usersRouter.get('/api/users/:username/routines', async (req, res, next) => {
+usersRouter.get('/username/:cartId', async (req, res, next) => {
   const user = getUserByUsername();
 
   try {
@@ -139,4 +141,4 @@ usersRouter.get('/api/users/:username/routines', async (req, res, next) => {
 
 
 
-module.exports = usersRouter;
+module.exports = {usersRouter};
