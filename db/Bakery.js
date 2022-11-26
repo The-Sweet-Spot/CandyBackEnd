@@ -18,7 +18,7 @@ async function getAllBakedGoodsById (bakedId) {
         const { rows: [bakery] } = await client.query (`
         SELECT *
         FROM baked_goods
-        WHERE id=$1
+        WHERE id=$1;
         `, [bakedId]);
 
         return bakery;
@@ -33,7 +33,7 @@ async function getAllBakedGoodsByName (bakedGoodsName) {
         const { rows : [bakery] } = await client.query(`
         SELECT *
         FROM baked_goods
-        WHERE id=$1
+        WHERE id=$1;
         `, [bakedGoodsName]);
 
         return bakery;
@@ -48,7 +48,7 @@ async function createBakedGoods ({bakedGoodsName, bakedDescription, stock ,price
         const { rows: [bakery] } = await client.query(`
         INSERT INTO baked_goods ("bakedGoodsName", "bakedDescription", stock, price)
         VALUES($1, $2, $3, $4)
-        ON CONFLICT (name) DO NOTHING
+        ON CONFLICT ("bakedGoodsName") DO NOTHING
         RETURNING *;
         `, [bakedGoodsName, bakedDescription, stock, price]);
 
