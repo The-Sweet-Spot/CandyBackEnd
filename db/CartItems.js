@@ -1,4 +1,6 @@
 const { client } = require('./index')
+const {getAllBakedGoodsById} = require('./Bakery')
+const {getCandyById} = require('./Candy')
 
 
 
@@ -8,7 +10,7 @@ async function createCartItem({ cartId, cartItemsId, price_bought_at }) {
         INSERT INTO cart_items("cartId", "cartItemsId", "price_bought_at")
         VALUES($1, $2, $3)
         RETURNING *;
-        `, [cartId, cartItemsId, price_bought_at ])
+        `, [cartId, cartItemsId, price_bought_at])
         return cartItem
     } catch (error) {
         console.log(error)
@@ -67,6 +69,29 @@ async function attachCartItemsToCart(cart_items) {
         console.log(error)
     }
 }
+async function updateCartItems(cart_item_id, fields = {}) {
+    if (fields.cart_item_id) delete fields.cart_item_id;
+    const keys = Object.keys.map(
+        (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    try {
+        if(!!keys.length) {
+            const { rows } = await client.query(`
+            UPDATE "cart_items"
+            SET ${ setString }
+            WHERE "cart_item_id"=${ cart_item_id }
+            RETURNING *;
+        `, Object.values(fields));
+        return rows;
+        }
+        if (!keys.length) {
+            return await getCartItemByCandyId(candyId);
+            // return await getCartItemByBakedId(bakedId);
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 async function getAllCartItems() {
@@ -83,6 +108,26 @@ async function getAllCartItems() {
     }
 }
 
+async function removeCandyCartItem(candyId) {
+    try {
+        await client.query(`
+        DELETE FROM cart_items
+        WHERE "candyId"=$1;
+        `, [candyId])
+    } catch (error) {
+        console.error(error)
+    }
+}
+async function removeBakedCartItem(bakedId) {
+    try {
+        await client.query(`
+        DELETE FROM cart_items
+        WHERE "bakedId"=$1;
+        `, [bakedId])
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 async function getAllCartItemsByUser({ username }) {
@@ -99,15 +144,45 @@ async function getAllCartItemsByUser({ username }) {
         console.log(error)
     }
 }
+async function getCartItemsById(cartItemsId) {
+    try {
+        const { rows: [cartItems] } = await client.query(`
+        SELECT *
+        FROM cart_items
+        WHERE "cartItemsId"= $1;
+        `, [cartItemsId])
+        if (!cartItems) {
+            return null
+        }
+        return cartItems;
+    } catch (error) {
+        console.error(error)
+    }
+}
+async function destroyCartItems(cartItemsId) {
+    try {
+        await client.query(`
+        DELETE FROM "cart_items"
+        WHERE "cartItemsId"=$1;
+        `, [cartItemsId])
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
 module.exports = {
     createCartItem,
+    updateCartItems,
+    removeBakedCartItem,
+    removeCandyCartItem,
     getAllCartItems,
     getCartItemByBakedId,
     getCartItemByCandyId,
+    getCartItemsById,
     attachCartItemsToCart,
-    getAllCartItemsByUser
+    getAllCartItemsByUser,
+    destroyCartItems
 }
 

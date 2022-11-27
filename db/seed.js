@@ -62,6 +62,8 @@ async function createTables() {
         CREATE TABLE cart_items(
             "cartItemsId" SERIAL PRIMARY KEY,
             "cart_id" INTEGER REFERENCES cart("cartId"),
+            "bakedId" INTEGER REFERENCES baked_goods("bakedId"),
+            "candyId" INTEGER REFERENCES candy("candyId"),
             "price_bought_at" NUMERIC
         );`);   
 
