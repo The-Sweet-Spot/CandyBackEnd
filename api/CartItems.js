@@ -5,7 +5,6 @@ const {
     updateCartItems,
     removeBakedCartItem,
     removeCandyCartItem,
-    getAllCartItems,
     getCartItemsById,
     getCartItemByBakedId,
     getCartItemByCandyId,
