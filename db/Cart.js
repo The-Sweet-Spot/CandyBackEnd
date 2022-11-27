@@ -1,14 +1,15 @@
 const { client } = require("./index") 
 
 // FN: createCart - Finished
-async function createCart ( { userId } ) {
+async function createCart ( { usersId, cartStatus } ) {
     try {
         const {rows: [cart] } = await client.query(`
-            INSERT INTO cart("userId")
-            VALUES ($1)
-            RETURNING *;
-            `, [userId]
+        INSERT INTO cart("usersId", "cartStatus")
+        VALUES($1, $2)
+        RETURNING *;
+        `, [ usersId, cartStatus]
         );
+
         return cart 
     } catch (error) {
         console.error("Error createCart: ")
@@ -49,15 +50,15 @@ async function updateCart (id, fields = {} ) {
     // rewirte so the cartStatus is always set to be able to be updated;  active, etc
 
 // FN: updateCartStatus
-async function updateCartStatus({ userId }) {
+async function updateCartStatus({ usersId }) {
     try {
       const {rows: [cart]} = await client.query(`
           UPDATE cart
           SET cartStatus = true
-          WHERE carts.user_id= $1
+          WHERE carts.usersID= $1
           RETURNING *;
         `,
-        [userId]
+        [usersId]
       );
 
       return cart;
@@ -77,45 +78,45 @@ module.exports = {
 
 
 
-// Scratch 
-async function updateCart ({userId, cartStatus} ) {
-    if (condition) {
-        try {
-            const {rows: [cart] } = await client.query(`
-            UPDATE cart
-            SET candyID = 1
-            WHERE cart.userId= $1
-            AND SET bakedId = 0
-            WHERE cart.userId= $1
-            AND SET cartStatus = 'active'
-            RETURNING*;            
-            `,
-            [userId, cartStatus]
+// // Scratch 
+// async function updateCart ({usersId, cartStatus} ) {
+//     if (condition) {
+//         try {
+//             const {rows: [cart] } = await client.query(`
+//             UPDATE cart
+//             SET candyID = 1
+//             WHERE cart.usersId= $1
+//             AND SET bakedId = 0
+//             WHERE cart.usersId= $1
+//             AND SET cartStatus = 'active'
+//             RETURNING*;            
+//             `,
+//             [usersId, cartStatus]
 
-            );
-            return cart;
-        } catch (error) {
-            console.error('Error Updating Cart Candy Purchase: ');
-            console.log(error);
-        }
-    }else {
-        try {
-            const {rows: [cart] } = await client.query(`
-            UPDATE cart
-            SET candyID = 0
-            WHERE cart.userId= $1
-            AND SET bakedId = 1
-            WHERE cart.userId= $1
-            AND SET cartStatus = 'active'
-            RETURNING*;            
-            `,
-            [userId, cartStatus]
+//             );
+//             return cart;
+//         } catch (error) {
+//             console.error('Error Updating Cart Candy Purchase: ');
+//             console.log(error);
+//         }
+//     }else {
+//         try {
+//             const {rows: [cart] } = await client.query(`
+//             UPDATE cart
+//             SET candyID = 0
+//             WHERE cart.usersId= $1
+//             AND SET bakedId = 1
+//             WHERE cart.usersId= $1
+//             AND SET cartStatus = 'active'
+//             RETURNING*;            
+//             `,
+//             [usersId, cartStatus]
 
-            );
-            return cart;
-        } catch (error) {
-            console.error('Error Updating Cart BakedGood Purchase: ');
-            console.log(error);
-        }
-    }
-}
+//             );
+//             return cart;
+//         } catch (error) {
+//             console.error('Error Updating Cart BakedGood Purchase: ');
+//             console.log(error);
+//         }
+//     }
+// }

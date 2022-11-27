@@ -179,16 +179,27 @@ async function createInitialCandy() {
     }
 }
 
-// async function createInitialCart() {
-//     try {
-//         console.log("Starting to createInitialCart: ")
-
-        
-//     } catch (error) {
-//         console.error(error.detail)
-//     }
-// }
-
+async function createInitialCart() {
+    console.log('Starting to Create Carts:');
+    try {
+        await createCart({
+            usersId: 1,
+            cartStatus: "active"            
+        });
+        await createCart({
+            usersId: 2,
+            cartStatus: "active"            
+        });
+        await createCart({
+            usersId: 3,
+            cartStatus: "active"            
+        });
+        console.log("Finished creating initial cart: ")
+    } catch (error) {
+        console.error('Error Creating Initial Carts: ');
+        console.log(error);
+    }
+}
 
 async function testDB() {
     try {
@@ -204,15 +215,14 @@ async function testDB() {
         const candyGoods = await getAllCandy();
         console.log("Results", candyGoods)
 
-        console.log("Calling create Carts: ")
+        console.log("Calling Carts: ")
         const newCart = await createCart();
         console.log("Results", newCart)
     } catch (error) {
         console.log("Error during testDB");
-        console.log(error.detail);
+        console.log(error);
     }
 }
-
 
 async function rebuildDB() {
     try {
@@ -222,6 +232,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialBakery();
     await createInitialCandy();
+    await createInitialCart();
 
     } catch (error) {
     console.log("Error during rebuildDB:")

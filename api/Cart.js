@@ -4,11 +4,11 @@ const cartRouter = express.Router();
 
 // Create Cart
 cartRouter.post("/", async (req, res, next) => {
-  const { userId, cartStatus } = req.body;
+  const { usersId, cartStatus } = req.body;
 
     try {
         const newCart = await createCart({
-            userId, cartStatus
+            usersId, cartStatus
         });
 
         res.send({
