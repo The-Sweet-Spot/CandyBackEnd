@@ -48,7 +48,7 @@ async function createBakedGoods ({bakedGoodsName, bakedDescription, stock ,price
         const { rows: [bakery] } = await client.query(`
         INSERT INTO baked_goods ("bakedGoodsName", "bakedDescription", stock, price)
         VALUES($1, $2, $3, $4)
-        ON CONFLICT (name) DO NOTHING
+        ON CONFLICT ("bakedGoodsName") DO NOTHING
         RETURNING *;
         `, [bakedGoodsName, bakedDescription, stock, price]);
 
