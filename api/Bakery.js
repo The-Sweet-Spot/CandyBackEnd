@@ -16,31 +16,30 @@ bakeRouter.get('/', async (req, res, next) =>{
 });
 
 //GET/bakedGoodsById 
-bakeRouter.get('/:bakedid', async (req, res, next) => {
-    try {
-    const bakedGoodsById = await getAllBakedGoodsById(bakedId)
-    console.log(bakedGoodsById)
-    
-        res.send(
-            bakedGoodsById
-        )
+bakeRouter.get('/:bakedId', async (req, res, next) => {
+    const {bakedId} = req.params 
+try {
+    const newBakedId = await getAllBakedGoodsById (bakedId)
+    res.send (newBakedId)
+
     } catch (error) {
         console.log(error)
     }
 });
 
 //GET/bakedGoodsByName 
-bakeRouter.get('/:name', async (req, res, next) => {
-    try{
-        const bakedGoodsByName = await getAllBakedGoodsByName(bakedGoodsName)
-        console.log(bakedGoodsByName)
+// bakeRouter.get('/bakedGoodsName', async (req, res, next) => {
+//     const {bakedGoodsName} = req.body 
+//     try{
+//         const nameOfBakedGoods = await getAllBakedGoodsByName(bakedGoodsName)
+//         console.log(nameOfBakedGoods)
 
-        res.send(
-            bakedGoodsByName
-        )
-    } catch (error) {
-        console.log(error)
-    }
-});
+//         res.send({
+//             nameOfBakedGoods
+//         })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 
 module.exports = {bakeRouter}

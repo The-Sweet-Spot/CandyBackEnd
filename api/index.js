@@ -33,12 +33,12 @@ message: `Authorization token must start with ${ prefix }`
 });
 
 // Routers
-const {bakeryRouter} = require('./Bakery');
+const {bakeRouter} = require('./Bakery');
 const {candyRouter} = require('./Candy');
 const {cartRouter} = require('./Cart');
 const {usersRouter} = require('./Users');
 
-// apiRouter.use('/bakery', bakeryRouter);
+apiRouter.use('/bakery', bakeRouter);
 apiRouter.use('/candy', candyRouter);
 // apiRouter.use('/cart', cartRouter);
 apiRouter.use('/users', usersRouter);
