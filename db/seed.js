@@ -190,14 +190,17 @@ async function createInitialCart() {
         console.log(" This is cart one: ")
         await createCart({
             cartId: 1,
+            usersId: 1,
             active: true          
         });
         await createCart({
             cartId: 2,
+            usersId: 2,
             active: true            
         });
         await createCart({
             cartId: 3,  
+            usersId: 3,
             active: true          
         });
         console.log("Finished creating initial cart: ")
@@ -222,7 +225,7 @@ async function testDB() {
         console.log("Results", candyGoods)
 
         console.log("Calling Carts: ")
-        const newCart = await getCartById(cartId[0]);
+        const newCart = await getCartById();
         console.log("Results", newCart)
     } catch (error) {
         console.log("Error during testDB");
