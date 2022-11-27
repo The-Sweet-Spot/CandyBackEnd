@@ -1,16 +1,18 @@
 const express = require("express");
-const { createCart, updateCart, updateCartStatus } = require("../db/Cart");
+const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
 const { getCartById } = require("../db/Cart");
 const cartRouter = express.Router();
 
 // Create Cart
-// cartRouter.get("/", async (req, res, next) => {
-//     try {
-//         const response 
-//     } catch (error) {
+cartRouter.get("/", async (req, res, next) => {
+    try {
+        const response = await getAllCarts();
+        res.send(response);
+    } catch (error) {
+        console.log(error);
         
-//     }
-// })
+    }
+})
 
 
 cartRouter.post("/", async (req, res, next) => {
@@ -52,3 +54,16 @@ module.exports = {cartRouter};
 
 // comment so i can push
 
+
+cartRouter.post("/", async (req, res, next) => {
+    //   const { cartId, usersId, active } = req.body;
+    const {cartId, usersId, active} = req.params
+    try {
+        const newCart = await createCart({
+            cartId, usersId, active
+        });
+        res.send(newCart);
+        } catch ({ name, message }) {
+        next({ name, message });
+        }
+    });

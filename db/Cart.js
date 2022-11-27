@@ -69,6 +69,22 @@ async function getCartById(cartId) {
     }
 
 }
+
+// FN: getaLlCarts
+async function getAllCarts() {
+    try {
+        const {rows: [cart]} = await client.query(`
+            SELECT *
+            FROM cart;
+            ` 
+        ); return cart
+    } catch (error) {
+        console.error("Error getting cart by id:")
+        console.log(error)
+        
+    }
+}
+
 // FN: updateCartStatus
 async function updateCartStatus({ active }) {
     try {
@@ -90,6 +106,7 @@ async function updateCartStatus({ active }) {
 
 module.exports = {
     createCart,
+    getAllCarts,
     getCartById,
     updateCart,
     updateCartStatus
