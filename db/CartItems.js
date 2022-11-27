@@ -30,10 +30,10 @@ async function getCartItemByCandyId({candyId}) {
 }
 async function getCartItemByBakedId({bakedId}) {
     try {
-        const { rows: [ bakedItem] } = await client.query(`
+        const { rows: [bakedItem] } = await client.query(`
         SELECT *
         FROM cart_Items
-        WHERE id=$1;
+        WHERE "cartItemsId"=$1;
         `, [bakedId])
         return bakedItem
     } catch (error) {
@@ -73,7 +73,7 @@ async function getAllCartItems() {
 
     try {
         const { rows } = await client.query(`
-        SELECT routines.*, users.username AS "usersId"
+        SELECT cart_items.*, users.username AS "usersId"
         FROM cart_items
         JOIN users ON cart_items."usersId"=users.id;
         `);
