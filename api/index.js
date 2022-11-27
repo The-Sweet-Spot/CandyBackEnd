@@ -40,7 +40,7 @@ const {usersRouter} = require('./Users');
 
 apiRouter.use('/bakery', bakeRouter);
 apiRouter.use('/candy', candyRouter);
-// apiRouter.use('/cart', cartRouter);
+apiRouter.use('/cart', cartRouter);
 apiRouter.use('/users', usersRouter);
 
 // Error Router

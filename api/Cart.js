@@ -1,23 +1,54 @@
 const express = require("express");
-const { createCart, updateCart, updateCartStatus } = require("../db");
+const { createCart, updateCart, updateCartStatus } = require("../db/Cart");
+const { getCartById } = require("../db/Cart");
 const cartRouter = express.Router();
 
 // Create Cart
+// cartRouter.get("/", async (req, res, next) => {
+//     try {
+//         const response 
+//     } catch (error) {
+        
+//     }
+// })
+
+
 cartRouter.post("/", async (req, res, next) => {
-  const { usersId, cartStatus } = req.body;
+//   const { cartId, usersId, active } = req.body;
 
     try {
-        const newCart = await createCart({
-            usersId, cartStatus
-        });
+        const existingCart = await getCartById(cartId);
 
-        res.send({
-            message: "New Cart Created!",
-            newCart: newCart });
+        if (existingCart) {
+            next({
+                name: "Existing Cart",
+                message: `Cart name ${cartId} already exist!`,
+                error: "error"
+            })
+        }
+        const newCart = await createCart({
+            cartId,
+            usersId,
+            active
+            });
+        res.send(newCart);
+        } catch ({ name, message }) {
+        next({ name, message });
+        }
+    });
+
+cartRouter.get("/:cartId", async (req, res, next) => {
+    const { cartId } = req.params
+    try {
+        const newCartId = await getCartById (cartId)
+        res.send (newCartId)
+
     } catch (error) {
-        next({ message: "CART ERROR: " });
+        console.log(error)
     }
 });
 
-module.exports = cartRouter;
+module.exports = {cartRouter};
+
 // comment so i can push
+
