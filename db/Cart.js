@@ -1,13 +1,13 @@
 const { client } = require("./index") 
 
 // FN: createCart - Finished
-async function createCart ( { usersId, cartStatus } ) {
+async function createCart ( { cartId, active } ) {
     try {
         const {rows: [cart] } = await client.query(`
-        INSERT INTO cart("usersId", "cartStatus")
+        INSERT INTO cart("cartId", "active")
         VALUES($1, $2)
         RETURNING *;
-        `, [ usersId, cartStatus]
+        `, [ cartId, active]
         );
 
         return cart 
@@ -49,16 +49,36 @@ async function updateCart (id, fields = {} ) {
  // Updates: fields 
     // rewirte so the cartStatus is always set to be able to be updated;  active, etc
 
+
+// FN: getCartById
+async function getCartById(cartId) {
+    try {
+        const { rows: [cart] } = await client.query(`
+        SELECT *
+        FROM cart
+        WHERE cartId=$1;
+        `, [cartId]
+        );
+        return cart
+        
+    } catch (error) {
+        console.error("Error getting cart by id: ")
+        console.log(log.error)
+
+        
+    }
+
+}
 // FN: updateCartStatus
-async function updateCartStatus({ usersId }) {
+async function updateCartStatus({ active }) {
     try {
       const {rows: [cart]} = await client.query(`
           UPDATE cart
-          SET cartStatus = true
+          SET active = true
           WHERE carts.usersID= $1
           RETURNING *;
         `,
-        [usersId]
+        [active]
       );
 
       return cart;
@@ -70,6 +90,7 @@ async function updateCartStatus({ usersId }) {
 
 module.exports = {
     createCart,
+    getCartById,
     updateCart,
     updateCartStatus
 };

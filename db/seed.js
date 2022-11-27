@@ -4,7 +4,7 @@ const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
 const { createBakedGoods, getAllBakedGoods } = require('./Bakery'); 
 const { createCandy, getAllCandy } = require('./Candy');
-const { updateCart, createCart } = require('./Cart');
+const { updateCart, createCart, getCartById } = require('./Cart');
 // Imports
 // const {} = require('./Bakery');
 
@@ -59,7 +59,7 @@ async function createTables() {
         CREATE TABLE cart(
             "cartId" SERIAL PRIMARY KEY,
             "usersId" INTEGER REFERENCES users(id),
-            "cartStatus" VARCHAR (255) DEFAULT 'active' 
+            active BOOLEAN DEFAULT true 
         );
         CREATE TABLE cart_items(
             "cartItemsId" SERIAL PRIMARY KEY,
@@ -180,19 +180,25 @@ async function createInitialCandy() {
 }
 
 async function createInitialCart() {
-    console.log('Starting to Create Carts:');
     try {
+        // console.log('Starting to Create Carts:');
+        // const {
+        //     cartId, active
+        // } = await createCart(
+        //     1, true
+        // )
+        console.log(" This is cart one: ")
         await createCart({
-            usersId: 1,
-            cartStatus: "active"            
+            cartId: 1,
+            active: true          
         });
         await createCart({
-            usersId: 2,
-            cartStatus: "active"            
+            cartId: 2,
+            active: true            
         });
         await createCart({
-            usersId: 3,
-            cartStatus: "active"            
+            cartId: 3,  
+            active: true          
         });
         console.log("Finished creating initial cart: ")
     } catch (error) {
@@ -216,7 +222,7 @@ async function testDB() {
         console.log("Results", candyGoods)
 
         console.log("Calling Carts: ")
-        const newCart = await createCart();
+        const newCart = await getCartById(cartId[0]);
         console.log("Results", newCart)
     } catch (error) {
         console.log("Error during testDB");
