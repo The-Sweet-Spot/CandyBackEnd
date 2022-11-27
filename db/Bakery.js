@@ -18,7 +18,7 @@ async function getAllBakedGoodsById (bakedId) {
         const { rows: [bakery] } = await client.query (`
         SELECT *
         FROM baked_goods
-        WHERE id=$1
+        WHERE "bakedId"=$1;
         `, [bakedId]);
 
         return bakery;
@@ -33,7 +33,7 @@ async function getAllBakedGoodsByName (bakedGoodsName) {
         const { rows : [bakery] } = await client.query(`
         SELECT *
         FROM baked_goods
-        WHERE id=$1
+        WHERE "bakedId"=$1;
         `, [bakedGoodsName]);
 
         return bakery;
