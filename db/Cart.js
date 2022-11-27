@@ -4,7 +4,7 @@ const { client } = require("./index")
 async function createCart ( { cartId, usersId, active } ) {
     try {
         const {rows: [cart] } = await client.query(`
-        INSERT INTO cart("cartId", "usersId", "active")
+        INSERT INTO cart("cartId", "usersId", active)
         VALUES($1, $2, $3)
         RETURNING *;
         `, [ cartId, usersId, active]
