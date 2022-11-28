@@ -37,11 +37,12 @@ const {bakeRouter} = require('./Bakery');
 const {candyRouter} = require('./Candy');
 const {cartRouter} = require('./Cart');
 const {usersRouter} = require('./Users');
-
+const {cartItemsRouter} = require('./CartItems')
 apiRouter.use('/bakery', bakeRouter);
 apiRouter.use('/candy', candyRouter);
-// apiRouter.use('/cart', cartRouter);
+apiRouter.use('/cart', cartRouter);
 apiRouter.use('/users', usersRouter);
+apiRouter.use('/cartitems', cartItemsRouter)
 
 // Error Router
 // apiRouter.use((error, req, res, next) => {

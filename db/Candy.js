@@ -28,7 +28,7 @@ async function getCandyById(candyId) {
     try {
         const { rows: [candy] } = await client.query(`
         SELECT * FROM candy
-        WHERE id=${candyId};
+        WHERE "candyId"=${candyId};
         `);
         return candy ? candy : console.error("No candy found")
     } catch (error) {
