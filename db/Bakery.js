@@ -33,7 +33,7 @@ async function getAllBakedGoodsByName (bakedGoodsName) {
         const { rows : [bakery] } = await client.query(`
         SELECT *
         FROM baked_goods
-        WHERE "bakedId"=$1;
+        WHERE "bakedGoodsName"=$1;
         `, [bakedGoodsName]);
 
         return bakery;

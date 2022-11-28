@@ -45,31 +45,27 @@ async function updateCart (id, fields = {} ) {
         console.log(error)
     }
 }
- // Updates: fields 
-    // rewirte so the cartStatus is always set to be able to be updated;  active, etc
 
-
-// FN: getCartById
-async function getCartById(cartId) {
+// FN: getCartByUsersId
+async function getCartByUserId(usersId) {
     try {
         const { rows: [cart] } = await client.query(`
         SELECT *
         FROM cart
-        WHERE "cartId"=$1;
-        `, [cartId]
+        WHERE "usersId"=$1;
+        `, [usersId]
         );
         return cart
         
     } catch (error) {
-        console.error("Error getting cart by id: ")
+        console.error("Error getting cart by usersId: ")
         console.log(log.error)
 
         
     }
-
 }
 
-// FN: getaLlCarts
+// FN: getAllCarts - This is only needed for admin, not public
 async function getAllCarts() {
     try {
         const {rows: [cart]} = await client.query(`
@@ -80,7 +76,6 @@ async function getAllCarts() {
     } catch (error) {
         console.error("Error getting cart by id:")
         console.log(error)
-        
     }
 }
 
@@ -106,7 +101,7 @@ async function updateCartStatus({ active }) {
 module.exports = {
     createCart,
     getAllCarts,
-    getCartById,
+    getCartByUserId,
     updateCart,
     updateCartStatus
 };

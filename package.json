@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/The-Sweet-Spot/CandyBackEnd/issues"
   },
-  "homepage": "https://github.com/The-Sweet-Spot/CandyBackEnd#readme",
+  "homepage": "/",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",

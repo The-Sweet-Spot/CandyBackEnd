@@ -28,15 +28,14 @@ try {
 });
 
 //GET/bakedGoodsByName 
-// bakeRouter.get('/bakedGoodsName', async (req, res, next) => {
-//     const {bakedGoodsName} = req.body 
+// bakeRouter.get('/:bakedId/bakedGoodsName', async (req, res, next) => {
+//     const { bakedGoodsName } = req.body 
+
 //     try{
 //         const nameOfBakedGoods = await getAllBakedGoodsByName(bakedGoodsName)
 //         console.log(nameOfBakedGoods)
 
-//         res.send({
-//             nameOfBakedGoods
-//         })
+//         res.send(nameOfBakedGoods)
 //     } catch (error) {
 //         console.log(error)
 //     }

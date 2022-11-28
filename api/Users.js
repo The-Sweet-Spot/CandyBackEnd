@@ -138,7 +138,4 @@ usersRouter.get('/username/:cartId', async (req, res, next) => {
   }
 })
 
-
-
-
 module.exports = {usersRouter};
