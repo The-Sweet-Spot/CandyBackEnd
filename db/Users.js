@@ -1,5 +1,5 @@
 const { client } = require("./index");
-
+const bcrypt = require('bcrypt')
 
 async function createUser({username, password, email}) {
     try {
@@ -59,6 +59,16 @@ async function getUserByUsername(username){
     }
 }
 
+async function encryptUserInfo(password, email){
+    try {
+        const saltValue = await bcrypt.genSalt(10)
+        const hashValue = await bcrypt.hash(password, email, saltValue)
+        const areTheyTheSame = await bcrypt.compare(password, email, hashValue)
+    } catch (error) {
+        console.log(error)
+    }
+}
+encryptUserInfo();
 
 
 module.exports = {
