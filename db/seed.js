@@ -63,7 +63,9 @@ async function createTables() {
         );
         CREATE TABLE cart_items(
             "cartItemsId" SERIAL PRIMARY KEY,
-            "cart_id" INTEGER REFERENCES cart("cartId"),
+            "cartId" INTEGER REFERENCES cart("cartId"),
+            "bakedId" INTEGER REFERENCES baked_goods("bakedId"),
+            "candyId" INTEGER REFERENCES candy("candyId"),
             "price_bought_at" NUMERIC
         );`);   
 
@@ -178,6 +180,66 @@ async function createInitialCandy() {
         console.error(error.detail)
     }
 }
+async function createInitialCart() {
+    try {
+        // console.log('Starting to Create Carts:');
+        // const {
+        //     cartId, active
+        // } = await createCart(
+        //     1, true
+        // )
+        console.log(" This is cart one: ")
+        await createCart({
+            cartId: 1,
+            usersId: 1,
+            active: true          
+        });
+        await createCart({
+            cartId: 2,
+            usersId: 2,
+            active: true            
+        });
+        await createCart({
+            cartId: 3,  
+            usersId: 3,
+            active: true          
+        });
+        console.log("Finished creating initial cart: ")
+    } catch (error) {
+        console.error('Error Creating Initial Carts: ');
+        console.log(error);
+    }
+}
+
+async function createInitialCartItems() {
+    try {
+        console.log("creating initial cart items for cart")
+        await createCartItem({
+            cartId: 1,
+            cartItemsId: 1,
+            bakedId: 1,
+            candyId: 4,
+            price_bought_at: 5.00
+        });
+        await createCartItem({
+            cartId: 2,
+            cartItemsId: 2,
+            bakedId: 2,
+            candyId: 3,
+            price_bought_at: 5.00
+        });
+        await createCartItem({
+            cartId: 3,
+            cartItemsId: 3,
+            bakedId: 1,
+            candyId: 5,
+            price_bought_at: 5.00
+        });
+        console.log("Finished creating cart items")
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 async function createInitialCart() {
     try {
@@ -242,7 +304,7 @@ async function rebuildDB() {
     await createInitialBakery();
     await createInitialCandy();
     await createInitialCart();
-
+    await createInitialCartItems();
     } catch (error) {
     console.log("Error during rebuildDB:")
     console.log(error.detail);

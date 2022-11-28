@@ -17,7 +17,7 @@ async function createCart ( { cartId, usersId, active } ) {
     }
 }
 
-// FN: updateCart - Finished
+// FN: updateCart
 async function updateCart (id, fields = {} ) {
     if (fields.id) delete fields.id;
     const keys = Object.keys(fields)
@@ -34,7 +34,10 @@ async function updateCart (id, fields = {} ) {
             AND UPDATE cart
             SET 
             RETURNING *;
+<<<<<<< HEAD
                  
+=======
+>>>>>>> 7f3d09861cd608e05597bf833f6644e98fc6e169
         `,Object.values(fields))
 
         return rows;}
@@ -97,13 +100,13 @@ async function updateCartStatus({ active }) {
       console.error('Error Updating Cart Status! ');
       console.log(error);
     }
-}
+  }
 
 module.exports = {
     createCart,
-    getAllCarts, 
-    getCartByUserId,
-    updateCart, // combine 106 or 107
+    getAllCarts,
+    getCartByUsersId,
+    updateCart,
     updateCartStatus
 };
 
@@ -152,4 +155,8 @@ module.exports = {
 //             console.log(error);
 //         }
 //     }
+<<<<<<< HEAD
 // }
+=======
+// }
+>>>>>>> 7f3d09861cd608e05597bf833f6644e98fc6e169
