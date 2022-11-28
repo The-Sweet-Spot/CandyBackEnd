@@ -55,22 +55,23 @@ async function attachCartItemsToCart(cart_items) {
         const { rows: [cart] } = await client.query(`
         SELECT cart.*, cart_items."cartId", cart_items."cartItemsId", cart_items."cartItemsId" AS "cartItemsId"
         FROM cart
-        JOIN cart ON baked_goods."bakedId"candy=cart_items."candyId"
+        JOIN cart_items ON baked_goods."bakedId"candy=cart_items."candyId"
         WHERE cart_items."cartItemsId" IN (${idString});
-        `, idArr)
+        `)
         for (const cart_items of cart_items) {
-            const cartToAdd = cart.filter((activity) => {
+            const cartToAdd = cart.filter((cart) => {
                 return cart.cartId == cart_items.cartItemsIid
             }
             )
-            cartItems.cart = cartToAdd
-        }   return cart
+            cart_items.cart = cartToAdd
+        }   
+        return cart
     } catch (error) {
         console.log(error)
     }
 }
-async function updateCartItems(cart_item_id, fields = {}) {
-    if (fields.cart_item_id) delete fields.cart_item_id;
+async function updateCartItems(cartItemsId, fields = {}) {
+    if (fields.cartItemsId) delete fields.cartItemsId;
     const keys = Object.keys.map(
         (key, index) => `"${key}"=$${index + 1}`
     ).join(', ');
@@ -79,14 +80,16 @@ async function updateCartItems(cart_item_id, fields = {}) {
             const { rows } = await client.query(`
             UPDATE "cart_items"
             SET ${ setString }
-            WHERE "cart_item_id"=${ cart_item_id }
+            WHERE "cartItemsId"=${ cartItemsId }
             RETURNING *;
         `, Object.values(fields));
         return rows;
         }
         if (!keys.length) {
-            return await getCartItemByCandyId(candyId);
-            // return await getCartItemByBakedId(bakedId);
+            const candyStuff = await getCartItemByCandyId(candyId);
+            const bakedStuff = await getCartItemByBakedId(bakedId);
+            const productArr = [candyStuff, bakedStuff]
+            return productArr;
         }
     } catch (error) {
         console.error(error)
