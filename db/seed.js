@@ -4,7 +4,7 @@ const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
 const { createBakedGoods, getAllBakedGoods } = require('./Bakery'); 
 const { createCandy, getAllCandy } = require('./Candy');
-const { updateCart, createCart, getCartById } = require('./Cart');
+const { updateCart, createCart, getCartByUserId } = require('./Cart');
 // Imports
 // const {} = require('./Bakery');
 
@@ -225,7 +225,7 @@ async function testDB() {
         console.log("Results", candyGoods)
 
         console.log("Calling Carts: ")
-        const newCart = await getCartById();
+        const newCart = await getCartByUserId();
         console.log("Results", newCart)
     } catch (error) {
         console.log("Error during testDB");

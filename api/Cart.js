@@ -14,7 +14,6 @@ cartRouter.get("/", async (req, res, next) => {
     }
 })
 
-
 cartRouter.post("/", async (req, res, next) => {
 //   const { cartId, usersId, active } = req.body;
 
@@ -32,12 +31,12 @@ cartRouter.post("/", async (req, res, next) => {
             cartId,
             usersId,
             active
-            });
+        });
         res.send(newCart);
-        } catch ({ name, message }) {
+    } catch ({ name, message }) {
         next({ name, message });
-        }
-    });
+    }
+});
 
 cartRouter.get("/:cartId", async (req, res, next) => {
     const { cartId } = req.params
@@ -52,18 +51,7 @@ cartRouter.get("/:cartId", async (req, res, next) => {
 
 module.exports = {cartRouter};
 
-// comment so i can push
+// comment so I can push
+    // cart id will be by userID NOT card ID
 
-
-cartRouter.post("/", async (req, res, next) => {
-    //   const { cartId, usersId, active } = req.body;
-    const {cartId, usersId, active} = req.params
-    try {
-        const newCart = await createCart({
-            cartId, usersId, active
-        });
-        res.send(newCart);
-        } catch ({ name, message }) {
-        next({ name, message });
-        }
-    });
+// need patch to get cart status( active, pending, shipped, etc)

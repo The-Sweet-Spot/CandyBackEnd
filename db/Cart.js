@@ -4,7 +4,7 @@ const { client } = require("./index")
 async function createCart ( { cartId, usersId, active } ) {
     try {
         const {rows: [cart] } = await client.query(`
-        INSERT INTO cart("cartId", "usersId", "active")
+        INSERT INTO cart("cartId", "usersId", active)
         VALUES($1, $2, $3)
         RETURNING *;
         `, [ cartId, usersId, active]
@@ -17,7 +17,7 @@ async function createCart ( { cartId, usersId, active } ) {
     }
 }
 
-// FN: updateCart
+// FN: updateCart - Finished
 async function updateCart (id, fields = {} ) {
     if (fields.id) delete fields.id;
     const keys = Object.keys(fields)
@@ -46,31 +46,27 @@ async function updateCart (id, fields = {} ) {
         console.log(error)
     }
 }
- // Updates: fields 
-    // rewirte so the cartStatus is always set to be able to be updated;  active, etc
-
 
 // FN: getCartById
-async function getCartById(cartId) {
+async function getCartByUserId(usersId) {
     try {
         const { rows: [cart] } = await client.query(`
         SELECT *
         FROM cart
-        WHERE "cartId"=$1;
-        `, [cartId]
+        WHERE "usersId"=$1;
+        `, [usersId]
         );
         return cart
         
     } catch (error) {
-        console.error("Error getting cart by id: ")
+        console.error("Error getting cart by usersId: ")
         console.log(log.error)
 
         
     }
-
 }
 
-// FN: getaLlCarts
+// FN: getAllCarts - This is only needed for admin, not public
 async function getAllCarts() {
     try {
         const {rows: [cart]} = await client.query(`
@@ -81,7 +77,6 @@ async function getAllCarts() {
     } catch (error) {
         console.error("Error getting cart by id:")
         console.log(error)
-        
     }
 }
 
@@ -102,13 +97,13 @@ async function updateCartStatus({ active }) {
       console.error('Error Updating Cart Status! ');
       console.log(error);
     }
-  }
+}
 
 module.exports = {
     createCart,
-    getAllCarts,
-    getCartById,
-    updateCart,
+    getAllCarts, 
+    getCartByUserId,
+    updateCart, // combine 106 or 107
     updateCartStatus
 };
 
