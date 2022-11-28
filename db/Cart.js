@@ -47,7 +47,7 @@ async function updateCart (id, fields = {} ) {
     }
 }
 
-// FN: getCartById
+// FN: getCartByUsersId
 async function getCartByUserId(usersId) {
     try {
         const { rows: [cart] } = await client.query(`
