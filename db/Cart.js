@@ -34,10 +34,6 @@ async function updateCart (id, fields = {} ) {
             AND UPDATE cart
             SET 
             RETURNING *;
-<<<<<<< HEAD
-                 
-=======
->>>>>>> 7f3d09861cd608e05597bf833f6644e98fc6e169
         `,Object.values(fields))
 
         return rows;}
@@ -105,7 +101,7 @@ async function updateCartStatus({ active }) {
 module.exports = {
     createCart,
     getAllCarts,
-    getCartByUsersId,
+    getCartByUserId,
     updateCart,
     updateCartStatus
 };
@@ -155,8 +151,4 @@ module.exports = {
 //             console.log(error);
 //         }
 //     }
-<<<<<<< HEAD
 // }
-=======
-// }
->>>>>>> 7f3d09861cd608e05597bf833f6644e98fc6e169

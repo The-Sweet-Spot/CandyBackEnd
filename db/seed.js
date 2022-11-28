@@ -5,6 +5,7 @@ const { createUser, getAllUsers } = require('./Users')
 const { createBakedGoods, getAllBakedGoods } = require('./Bakery'); 
 const { createCandy, getAllCandy } = require('./Candy');
 const { updateCart, createCart, getCartByUserId } = require('./Cart');
+const { createCartItem, getCartItemsById } = require('./CartItems')
 // Imports
 // const {} = require('./Bakery');
 
@@ -204,6 +205,11 @@ async function createInitialCart() {
             usersId: 3,
             active: true          
         });
+        await createCart({
+            cartId: 4,  
+            usersId: 4,
+            active: true          
+        });
         console.log("Finished creating initial cart: ")
     } catch (error) {
         console.error('Error Creating Initial Carts: ');
@@ -235,40 +241,33 @@ async function createInitialCartItems() {
             candyId: 5,
             price_bought_at: 5.00
         });
+        // extra 4
+        await createCartItem({
+            cartId: 1,
+            cartItemsId: 4,
+            bakedId: 1,
+            candyId: 5,
+            price_bought_at: 5.00
+        });
+        // 5
+        await createCartItem({
+            cartId: 2,
+            cartItemsId: 5,
+            bakedId: 2,
+            candyId: 4,
+            price_bought_at: 5.00
+        });
+        // 6
+        await createCartItem({
+            cartId: 3,
+            cartItemsId: 6,
+            bakedId: 2,
+            candyId: 2,
+            price_bought_at: 5.00
+        });
         console.log("Finished creating cart items")
     } catch (error) {
         console.error(error)
-    }
-}
-
-async function createInitialCart() {
-    try {
-        // console.log('Starting to Create Carts:');
-        // const {
-        //     cartId, active
-        // } = await createCart(
-        //     1, true
-        // )
-        console.log(" This is cart one: ")
-        await createCart({
-            cartId: 1,
-            usersId: 1,
-            active: true          
-        });
-        await createCart({
-            cartId: 2,
-            usersId: 2,
-            active: true            
-        });
-        await createCart({
-            cartId: 3,  
-            usersId: 3,
-            active: true          
-        });
-        console.log("Finished creating initial cart: ")
-    } catch (error) {
-        console.error('Error Creating Initial Carts: ');
-        console.log(error);
     }
 }
 
@@ -287,8 +286,12 @@ async function testDB() {
         console.log("Results", candyGoods)
 
         console.log("Calling Carts: ")
-        const newCart = await getCartByUserId();
+        const newCart = await getCartByUserId(4);
         console.log("Results", newCart)
+
+        console.log("Calling cart items")
+        const newItems = await getCartItemsById(4);
+        console.log("Results:", newItems)
     } catch (error) {
         console.log("Error during testDB");
         console.log(error);

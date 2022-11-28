@@ -1,4 +1,6 @@
 const express = require("express");
+const { getAllBakedGoodsById } = require("../db/Bakery");
+const { getCandyById } = require("../db/Candy");
 const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
 const { getCartItemsBy } = require('../db/CartItems');
@@ -15,6 +17,7 @@ cartRouter.get("/", async (req, res, next) => {
     }
 })
 
+// get cart 
 cartRouter.post("/", async (req, res, next) => {
 //   const { cartId, usersId, active } = req.body;
 
@@ -51,47 +54,46 @@ cartRouter.get("/:usersId", async (req, res, next) => {
     }
 });
 
-// cartItemsId patch
-cartRouter.patch("/:cartItemsId", async (req, res, next) => {
-    try {
-        const { cartItemsId } = req.params;
-        const updateCart = {};
-        updateCart.id = cartItemsId;
-        if (name) {
-            updateCart.id = cartItemsId;
-        } if (goal) {
-        updateRole.goal = goal;
+// post
+// cartRouter.post/("/:usersId", async (req, res, next) => {}
 
-        } if (!(await getCartItemsBy(cartItemsId))) {
-                // make sure this fn is created & imported
-            next({
-                name: "CartItemsById",
-                message: `Cart named ${cartId} not found`,
-                error: "Error! ",
-            });
-        } if (await getCartByUserId(usersId)) {
-            next({
-                name: "UsersId already present",
-                message: `A Cart with the usersId ${usersId} already exists`,
-                error: "Error! ",
-            });
-        } else {
-            const response = await updateCart(active);
-                // ?
-            if (response) {
-            res.send(response);
-            } else {
-            next({
-                name: "No Carts To Update: ",
-                message: `No Cart to update.`,
-                error: "Error! ",
-            });
-        }
-    }
-    } catch (error) {
-    next(error);
-    }
-});
+// cartItemsId patch
+// cartRouter.patch("/:usersId/:cartItemsId", async (req, res, next) => {
+//     try {
+//         const { cartItemsId } = req.params;
+//         const updateCart = {};
+//         updateCart.id = cartItemsId;
+//         if (!(await getCartItemsBy(cartItemsId))) {
+//                 // make sure this fn is created & imported
+//             next({
+//                 name: "CartItemsById",
+//                 message: `Cart named ${cartId} not found`,
+//                 error: "Error! ",
+//             });
+//         } if (await getCartByUserId(usersId)) {
+//             next({
+//                 name: "UsersId already present",
+//                 message: `A Cart with the usersId ${usersId} already exists`,
+//                 error: "Error! ",
+//             });
+//         } else {
+//             const response = await updateCart(active);
+//                 // ?
+//             if (response) {
+//             res.send(response);
+//             } else {
+//             next({
+//                 name: "No Carts To Update: ",
+//                 message: `No Cart to update.`,
+//                 error: "Error! ",
+//             });
+//         }
+//     }
+//     } catch (error) {
+//     next(error);
+//     }
+// });
+
 module.exports = {cartRouter};
 
 // comment so I can push
@@ -99,3 +101,25 @@ module.exports = {cartRouter};
 // need patch to get cart status( active, pending, shipped, etc)
 
 // patch update copy and paste
+
+// get candy
+cartRouter.post('/:cartId/candy', async (req, res, next) => {
+    const { candyId } = req.params
+    try {
+        const candy = await getCandyById(candyId);
+        res.send({ candy })
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+// GET/baked
+cartRouter.post('/:cartId/baked', async (req, res, next) => {
+    const { bakedId } = req.params
+    try {
+        const bakery = await getAllBakedGoodsById(bakedId);
+        res.send({ bakery })
+    } catch (error) {
+        console.log(error)
+    }
+});
