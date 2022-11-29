@@ -35,8 +35,11 @@ usersRouter.post("/login", async (req, res, next) => {
 
   try {
     const user = await getUserByUsername(username);
-
-    if (user && user.password == password) {
+    const saltValForPW = await bcrypt.genSalt(10);
+    console.log("I'm the salt for password: ", saltValForPW)
+    const hashedPassword = await bcrypt.hash(password, saltValForPW);
+    const areTheyTheSame = await bcrypt.compare(password, hashedPassword)
+    if (Object.keys(user).length && user.password) {
       const newToken = jwt.sign(
         {
           username: username,
@@ -47,7 +50,7 @@ usersRouter.post("/login", async (req, res, next) => {
           expiresIn: "1w",
         }
       );
-        console.log(newToken)
+        console.log("This is newToken: ", newToken)
       res.send({ message: "you're logged in!", token: newToken });
     } else {
       next({
@@ -55,6 +58,7 @@ usersRouter.post("/login", async (req, res, next) => {
         message: "Username or password is incorrect",
       });
     }
+    
   } catch (error) {
     console.log(error);
     next(error);
@@ -85,6 +89,7 @@ usersRouter.post("/register", async (req, res, next) => {
     console.log("I'm the hashed for password: ", hashedPassword)
     const saltValForEmail = await bcrypt.genSalt(10);
     const hashedEmail = await bcrypt.hash(email, saltValForEmail)
+    
     const newUserData = await createUser({
       username,
       password: hashedPassword,
