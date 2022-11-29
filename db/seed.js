@@ -340,48 +340,209 @@ async function createInitialCandy() {
             image: "https://i5.walmartimages.com/asr/99ba3cd5-0621-4609-b992-f544f2a8fb3c_1.20291b7fdacd346a80e4000e0fc93a0f.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
         });
         await createCandy({
-            
+            candyName: 'Air Heads Mini Bars',
+            candyDescription: 'Air Heads are a tangy, taff-like, chewy candy coming in a complete assortment of flavors, but our mini bars  You might even find some special edition flavors for the holidays.',
+            stock: 1000,
+            price: .99,
+            image: "https://cdn.media.amplience.net/i/partycity/469716?$large$&fmt=auto&qlt=default"
         });
         await createCandy({
-            
+            candyName: 'Bazooka Bubble Gum',
+            candyDescription: 'Unwrap the festive fun this holiday season with Bazookas iconic pink chewy bubble gum in bulk.',
+            stock: 1000,
+            price: .99,
+            image: "https://m.media-amazon.com/images/I/81e0p8CDXKL._SL1500_.jpg"
         });
         await createCandy({
-            
+            candyName: 'Black Cow',
+            candyDescription: 'The new BlackCow is very different than the original.  Holloway, who also made the Slo Poke, introduced Black Cows in the late 1920s.  They were basically a Slo Poke dipped in a chocolate flavored covering, but this time we have added caramel',
+            stock: 1000,
+            price: 1.89,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/black-cow-candy-bar_3c45ba34-885a-4348-bb52-d0876967ab53.jpg?v=1664971873"
         });
         await createCandy({
-            
+            candyName: 'Bubble Tape Original Flavor',
+            candyDescription: "Bubble Tape gum was the coolest gum.  Its so cool that you can buy gum in a container and dispense it like time.  Who wouldn't love it?.",
+            stock: 1000,
+            price: 1.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/bubble_tape_hubba_bubba_984c5259-d99a-4f17-b7e6-e70fb47728f7.jpg?v=1664971989"
         });
         await createCandy({
-            
+            candyName: 'Gummi Hot Dogs',
+            candyDescription: 'Gummi Hot Dogs, a miniature version of the all American food.  The hot dog is 1.75 inches long and individually wrapped',
+            stock: 1000,
+            price: .33,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/gummi-hot-dogs_1_1_fa0ceba1-9835-4cdd-818e-1bb674b883f9.jpg?v=1664973035"
         });
         await createCandy({
-            
+            candyName: 'Gummi Mini Burgers',
+            candyDescription: 'Gummi Mini Burgers, a miniature version of the all American food.  The burger is almost 1 inch in diameter and individually wrapped.',
+            stock: 1000,
+            price: .39,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/gummi-mini-burger3_069497f7-8b88-4781-9439-eb71f3570d48.jpg?v=1665069799&width=1100"
         });
         await createCandy({
-            
+            candyName: 'Toxic Waste 3 OZ Halloween Bank',
+            candyDescription: 'This Hazardously Sour Candy will bring back memories of contest in the school yard.  Who can keep it in their mouth for the longest?  Each 5 inch tall drum contains free stickers and about 30 pieces..',
+            stock: 1000,
+            price: 4.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/toxic-waiste-halloween-bank_ef49cb93-b3a7-4795-a965-442aa42f134b.jpg?v=1664976571&width=1100"
         });
         await createCandy({
-            
+            candyName: 'Wonder Ball Space Jam 0.88 Oz',
+            candyDescription: "The Wonder Ball has returned!  Now with candy basketballs inside the chocolate ball and a separate bounce ball.  Each Wonder Ball will include 1 of 17 random bounce balls and mango flavored sweetart basketball candy.  There are 17 different possibilities for which character bounce ball you will receive.  Each Wonder Ball is about 2 inches in diameter.",
+            stock: 1000,
+            price: 2.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/wonder-balls2_d7e013b2-aa48-4981-a8d9-566476faa780.jpg?v=1664976762&width=1100"
         });
         await createCandy({
-            
+            candyName: 'Tangy Tarts - Bulk',
+            candyDescription: 'Tangy Tarts will satisfy your hunger for tangy without being too sour.  TThey are sweet tart style candies about ½ inch in diameter',
+            stock: 1000,
+            price: 19.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/tangy-tarts-bulk-candy_2_e774f765-a9a6-4432-ba20-f7c234894dc8.jpg?v=1664976503"
         });
         await createCandy({
-            
+            candyName: 'Sneaky Stardust',
+            candyDescription: 'This shape-shifting gum changes from powder to gum!  Sneaky Stardust is a remake of the 90s favorite, Bubble Jug.  The gum is in 3 assorted flavors; Sour Blue Raspberry, Sour Strawberry, and Sour Green Apple.',
+            stock: 1000,
+            price: 1.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/sneaky-stardust5_f3a66254-b0e1-4f2a-bf18-30421ebbdcf3.jpg?v=1664976201"
         });
         await createCandy({
-            
+            candyName: 'Abba Zaba',
+            candyDescription: 'An Abba Zaba is a chewy taffy bar filled with a rich creamy peanut butter center.',
+            stock: 1000,
+            price: 1.69,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/abba-zaba3_d9d0282d-d383-4f84-95f8-c666e9d5a723.jpg?v=1664971581&width=1100"
         });
         await createCandy({
-            
+            candyName: 'Barrel of Monkeys',
+            candyDescription: "What's more fun than a Barrel of Monkeys?  Each unit includes a barrel with playing instructions and 15 red monkeys.  The barrel is approximately 4.75 inches tall",
+            stock: 1000,
+            price: 8.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/barrel-of-monkeys_138435c4-16d3-4969-b051-26f1bf73d6ad.jpg?v=1664971723&width=1100"
         });
         await createCandy({
-            
+            candyName: 'Big Hunk',
+            candyDescription: 'Big Hunk Almond is a long-lasting mouthful of chewy, honey-sweetened nougat filled with whole roasted Almonds',
+            stock: 1000,
+            price: 1.49,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/big-hunk3_a3f87b83-d60f-4d27-8ba1-1942bc1d789a.jpg?v=1664971794&width=1100"
         });
         await createCandy({
-            
+            candyName: "Cella's Chocolate Covered Cherries",
+            candyDescription: "Cella's Dark  Chocolate Cherries are 1.25 inches in diameter.  Selected  cherries are surrounded by a delicious 100% clear liquid then encased in real dark chocolate.  Individually wrapped.  Each 3 oz package contains 6 cherries.",
+            stock: 1000,
+            price: 3.99,
+            image: "https://cdn.shopify.com/s/files/1/0004/8132/9204/products/cellas-cherries_cc2d2dcb-8e7a-4074-98f1-7c2dbea83107.jpg?v=1664972233&width=1100"
         });
-        
+        await createCandy({
+            candyName: 'Runtz',
+            candyDescription: "Hard fruit shaped candy with vibrant colors, artificially flavored. Great for satisfying a jaw breaker need without the jaw breaker habit. The longer they remain in your mouth, the easier it will be to bite down. If swallowed whole, these runtz will go down easy.",
+            stock: 1000,
+            price: 5.25,
+            image: "https://cdn11.bigcommerce.com/s-xun5w23utl/images/stencil/1280x1280/products/642/1355/runts_vending_candy__47625.1607811331.jpg?c=1"
+        });
+        await createCandy({
+            candyName: 'Mike and Ike',
+            candyDescription: "Chewy, and fruity candy capsules that melt as you chew. If you desire a mouth full of fruity goodness, then Mike and Ike has you covered. With 5 flavors to choose from in the original Mike and Ike box, your mouth won't stop experiencing these delightful treats.",
+            stock: 1000,
+            price: 5.35,
+            image: "https://www.candywarehouse.com/item-images/126098-01_mike-ike-candy-5-ounce-packs-12-piece-box.jpg"
+        });
+        await createCandy({
+            candyName: 'Sweet Tarts',
+            candyDescription: "Round and crunchy with a slight sour kick. These small pastel colored disks give your jaw a slight tingle. Bite down and hear the crunch while smaller pieces overlay your tongue in tart goodness.",
+            stock: 1000,
+            price: 5.23,
+            image: "https://m.media-amazon.com/images/I/51mc0QM35RL.jpg"
+        });
+        await createCandy({
+            candyName: 'Nerds',
+            candyDescription: "Confetti of small, hard, colorful crumbs that quickly envelop yourtaste buds. These little guys pack quite the punch. Grab a handful and toss them in,you won't soon forget the power they bring.",
+            stock: 1000,
+            price: 3.45,
+            image: "https://m.media-amazon.com/images/I/71nBM1T+8QL.jpg"
+        });
+        await createCandy({
+            candyName: 'War Heads',
+            candyDescription: "Call the military because this hard candy will cause your taste buds to go to WAR. Coated with a harsh acidic sour powder that will alter your cheeks and mouth. After the first introduction, it will follow a soothing sweet calm. Then, take no shame, and bite down, this will bring the ultimate victory.",
+            stock: 1000,
+            price: 4.89,
+            image: "https://cdn11.bigcommerce.com/s-1b75a/images/stencil/1280x1280/products/285/1935/DSCN0651__38631.1646360242.JPG?c=2"
+        });
+        await createCandy({
+            candyName: "Hersheys Milk Chocolate Bar",
+            candyDescription: "12 pips of deliciously creamy milk chocolate. Enlighten yourself with the soothing comfort of carefully crafted chocolate. Give yourself to the inevitable melt as you bite in. Lose yourself in comfort.",
+            stock: 1000,
+            price: 2.63,
+            image: "https://www.candywarehouse.com/item-images/125892-01_hersheys-milk-chocolate-bars-36-piece-box.jpg"
+        });
+        await createCandy({
+            candyName: 'Jaw Breaker',
+            candyDescription: "DO NOT BITE!, unless of course you want to break your jaw. You will never reach the middle but you won't want to give up. As you lick, you'll discover new layers of this candy galaxy. It's okay to quit, no one completes this mission. If you're the first, then get another.",
+            stock: 1000,
+            price: 1.99,
+            image: "https://m.media-amazon.com/images/I/61n1xzmC66L.jpg"
+        });
+        await createCandy({
+            candyName: 'Caramel Hard Candies',
+            candyDescription: "Sweet rock hard caramel. Best to keep your mouth entertained for 3-5 minutes. Rich flavor of melted brown sugar, infused with vanilla extra, and corn syrup. Cooled till stiff for your pleasure. Grandmas love them and so will you.",
+            stock: 1000,
+            price: 4.75,
+            image: "https://m.media-amazon.com/images/I/51KGOIVwNhL.jpg"
+        });
+        await createCandy({
+            candyName: 'DOTS',
+            candyDescription: "Colorful, chewy thimbles that grip your teeth in a sticky mess. But no matter the mess, you'll be popping these DOTS till there are none left. Give them a nice squeeze before you toss one inside your mouth, you must ensure they have a certain bounce.",
+            stock: 1000,
+            price: 3.85,
+            image: "https://cdn11.bigcommerce.com/s-nkdwo8ulw8/images/stencil/1280x1280/products/7592/11368/DOTS_Gumdrops__67096.1580496501.jpg?c=2"
+        });
+        await createCandy({
+            candyName: 'Swedish Fish',
+            candyDescription: "Red fish that don't just swim. The grant a soothing tart flavor as you chew. Don't let the red fool you into thinking they are up to no good. The fish will bring happiness to any consumer. Chew carefully though, they might grab hold of your molars.",
+            stock: 1000,
+            price: 4.69,
+            image: "https://images.heb.com/is/image/HEBGrocery/001274914"
+        });
+        await createCandy({
+            candyName: 'Milk Duds',
+            candyDescription: "Round bite side balls of milk chocolate and caramel that you canchew like a gummy? Yes, Milk Duds does just that. Warning though, they may be difficult to retrieve from the box, and eye witnesses state that they grab hold of your smile. Thank goodness for fingers, now you can make sure those duds don't linger.",
+            stock: 1000,
+            price: 3.75,
+            image: "https://m.media-amazon.com/images/I/41ekgxE5bhL.jpg"
+        });
+        await createCandy({
+            candyName: 'Hubba Bubba Max: Strawberry Watermelon',
+            candyDescription: "These cubes of green with red in the center are packed full of extreme strawberry watermelon flavor. You'll enjoy this gum for 10 minutes withouta doubt. Once the clock strike are another cube and experience it all over again. Blowing bubbles is not an issue with this brand.",
+            stock: 1000,
+            price: 1.35,
+            image: "https://d2aam04nmhpdf8.cloudfront.net/images/images/000/028/561/xlarge/12854_01.jpg?1557855537"
+        });
+        await createCandy({
+            xandyName: 'Trolli: Sour Bite Crawlers',
+            candyDescription: "Dewing colored worms coated in citric acid. Grab a bite are stretched it out to rip the worm in two. Or stuff the multiple colored worm all in yourmouth.",
+            stock: 1000,
+            price: 3.65,
+            image: "https://m.media-amazon.com/images/I/91Kad-jepLL.jpg"
+        });
+        await createCandy({
+            candyName: 'Chewy Spree',
+            candyDescription: "5 colored discs pack full of 5 different fruity flavors. The more you chew the sour they seem to get. Be careful when you swallow though, make sure it's fully chewed, otherwise it may hurt. But these powerful discs will keep you coming back.",
+            stock: 1000,
+            price: 4.50,
+            image: "https://mwdsnacks.com/wp-content/uploads/2020/04/527935.jpg"
+        });
+        await createCandy({
+            candyName: 'Rainbow Lolipop',
+            candyDescription: "Handmade hard candy wrapped into a lovely lollipop. Bright colors twisted together with a sweet rainbow flavor. Don't be surprise when it turns white, the color won't stay but the taste never fades.",
+            stock: 1000,
+            price: 0.99,
+            image: "https://www.rebeccas.com/mm5/graphics/00000001/cn134.jpg"
+        });
+
         console.log("Finished creating initial candy")
     } catch (error) {
         console.error(error.detail)
