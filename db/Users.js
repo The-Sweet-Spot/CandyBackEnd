@@ -1,5 +1,5 @@
 const { client } = require("./index");
-
+const bcrypt = require('bcrypt')
 
 async function createUser({username, password, email}) {
     try {
@@ -59,11 +59,29 @@ async function getUserByUsername(username){
     }
 }
 
+// async function generateHashedValue(password) {
+//     try {
+//         const saltValue = await bcrypt.genSalt();
+//         console.log("I am the salt value: ", saltValue);
+
+//         const hashedValue = await bcrypt.hash(password, saltValue);
+//         console.log("I am the hashed value: ", hashedValue)
+
+//         const areTheyTheSame = await bcrypt.compare(password, hashedValue)
+//         console.log("The flag for comparing: ", areTheyTheSame);
+//     } catch (error) {
+//         console.log(error)
+
+//     }
+// }
+
+// generateHashedValue();
 
 
 module.exports = {
     createUser,
     getUserById,
     getAllUsers,
-    getUserByUsername
+    getUserByUsername,
+    
 }
