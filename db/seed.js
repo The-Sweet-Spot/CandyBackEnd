@@ -558,22 +558,18 @@ async function createInitialCart() {
         // )
         console.log(" This is cart one: ")
         await createCart({
-            cartId: 1,
             usersId: 1,
             active: true          
         });
         await createCart({
-            cartId: 2,
             usersId: 2,
             active: true            
         });
-        await createCart({
-            cartId: 3,  
+        await createCart({ 
             usersId: 3,
             active: true          
         });
         await createCart({
-            cartId: 4,  
             usersId: 4,
             active: true          
         });

@@ -20,7 +20,7 @@ cartRouter.get("/", async (req, res, next) => {
 
 // get cart 
 cartRouter.post("/", async (req, res, next) => {
-    const { cartId, usersId, active } = req.body;
+    const { usersId, active } = req.body;
 console.log("Is this working", req.body)
 
     try {
@@ -34,7 +34,6 @@ console.log("Is this working", req.body)
             })
         }
         const newCart = await createCart({
-            cartId,
             usersId,
             active
         });
