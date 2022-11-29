@@ -186,14 +186,14 @@ async function createInitialBakery () {
             bakedGoodsName: 'Hershey Sundae Pie',
             stock:'4000',
             price:'30.00',
-            bakedDescription: 'A crunchy chocolate crust filled with chocolate crème filling and garnished with real HERSHEY’S® Chocolate Chips',
+            bakedDescription: "A crunchy chocolate crust filled with chocolate crème filling and garnished with real HERSHEY'S® Chocolate Chips",
             image:"https://i.pinimg.com/originals/22/69/a3/2269a32b5b02004e81a89b711955beff.jpg"
         });
         await createBakedGoods({
             bakedGoodsName: 'White Chocolate Macadamia Nut Cookies',
             stock:'4000',
             price:'25.00',
-            bakedDescription: 'These white chocolate macadamia nut cookies are soft-baked style with extra chewy centers. They’re absolutely PACKED with white chocolate and salted macadamia nuts. Pack of 20!',
+            bakedDescription: "These white chocolate macadamia nut cookies are soft-baked style with extra chewy centers. They're absolutely PACKED with white chocolate and salted macadamia nuts. Pack of 20!",
             image:"https://inbloombakery.com/wp-content/uploads/2022/04/featured-image-White-Chocolate-Macadamia-Nut-Cookies.jpg"
         });
         await createBakedGoods({
