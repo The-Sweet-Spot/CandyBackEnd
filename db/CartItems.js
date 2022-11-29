@@ -4,13 +4,13 @@ const {getCandyById} = require('./Candy')
 
 
 
-async function createCartItem({ cartId, cartItemsId, price_bought_at, bakedId, candyId }) {
+async function createCartItem({ cartId, price_bought_at, bakedId, candyId }) {
     try {
         const { rows: [ cartItem ] } = await client.query(`
-        INSERT INTO cart_items("cartId", "cartItemsId", "price_bought_at", "bakedId", "candyId")
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO cart_items("cartId", "price_bought_at", "bakedId", "candyId")
+        VALUES($1, $2, $3, $4)
         RETURNING *;
-        `, [cartId, cartItemsId, price_bought_at, bakedId, candyId])
+        `, [cartId, price_bought_at, bakedId, candyId])
         return cartItem
     } catch (error) {
         console.log(error)
