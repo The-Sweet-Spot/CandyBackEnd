@@ -1,36 +1,43 @@
+require('dotenv').config();
 const express = require('express');
 const apiRouter = express.Router();
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JEW_SECRET
+const JWT_SECRET = process.env.JWT_SECRET
 const {getUserById} = require('../db/Users')
 
 // JWT Middleware
 apiRouter.use(async (req, res, next) => {
-const prefix = 'Bearer ';
-const auth = req.header('Authorization');
+    const prefix = 'Bearer ';
+    const auth = req.header('Authorization');
 
-if (!auth) { console.log("No auth")
-next();
-} else if (auth.startsWith(prefix)) {
-const token = auth.slice(prefix.length);
-console.log("We have Auth")
-try {
-const { id } = jwt.verify(token, JWT_SECRET);
-if (id) {
-console.log("we have id")
-req.user = await getUserById(id);
-next();
-}
-} catch ({ name, message }) {
-next({ name, message });
-}
-} else {
-next({
-name: 'AuthorizationHeaderError',
-message: `Authorization token must start with ${ prefix }`
-});
-}
-});
+    if (!auth) { console.log("No auth")
+            next();
+    } else if (auth.startsWith(prefix)) {
+        const token = auth.slice(prefix.length);
+        console.log("We have Auth", token)
+        console.log("this is the secret", JWT_SECRET)
+        try {
+            const verifiedData = await jwt.verify(token, JWT_SECRET);
+            console.log("this is verifiedData", verifiedData)
+                if (verifiedData.id) {
+                    console.log("we have id")
+                    req.user = {
+                        id: verifiedData.id,
+                        username: verifiedData.username
+                    }
+                    console.log("this is req.user", req.user)
+                    next();
+                }
+        } catch (error) {
+            console.error(error);
+        }
+            } else {
+            next({
+                name: 'AuthorizationHeaderError',
+                message: `Authorization token must start with ${ prefix }`
+            });
+        }
+    });
 
 // Routers
 const {bakeRouter} = require('./Bakery');

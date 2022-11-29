@@ -333,34 +333,53 @@ async function createInitialCandy() {
     console.log("Creating initial candy")
     try {
         await createCandy({
-            candyName: "lolipops",
-            stock: "1000",
-            candyDescription: "lick till its gone",
-            price: 5.50
+            candyName: 'Air Heads',
+            candyDescription: 'Air Heads are a tangy, taff-like, chewy candy coming in a complete assortment of flavors. You might even find some special edition flavors for the holidays.',
+            stock: 1000,
+            price: 1.35,
+            image: "https://i5.walmartimages.com/asr/99ba3cd5-0621-4609-b992-f544f2a8fb3c_1.20291b7fdacd346a80e4000e0fc93a0f.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
         });
         await createCandy({
-            candyName: "gum drops",
-            stock: "1000",
-            candyDescription: "Its not a jaw breaker but dont bite",
-            price: 5.50
+            
         });
         await createCandy({
-            candyName: "Caramel Nips",
-            stock: "1000",
-            candyDescription: "Suck it good",
-            price: 5.50
+            
         });
         await createCandy({
-            candyName: "Gummy Bears",
-            stock: "1000",
-            candyDescription: "They are headless if you chew",
-            price: 5.50
+            
         });
         await createCandy({
-            candyName: "Jaw Breaker",
-            stock: "1000",
-            candyDescription: "Lick! DO NOT BITE!",
-            price: 5.50
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
+        });
+        await createCandy({
+            
         });
         
         console.log("Finished creating initial candy")

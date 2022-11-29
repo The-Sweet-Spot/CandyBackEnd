@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt')
-require('dotenv').config();
 const { getAllUsers,
         getUserByUsername,
         createUser,
@@ -37,6 +37,7 @@ usersRouter.post("/login", async (req, res, next) => {
     const user = await getUserByUsername(username);
     const saltValForPW = await bcrypt.genSalt(10);
     console.log("I'm the salt for password: ", saltValForPW)
+    console.log("this is the JWT secret:", JWT_SECRET)
     const hashedPassword = await bcrypt.hash(password, saltValForPW);
     const areTheyTheSame = await bcrypt.compare(password, hashedPassword)
     if (Object.keys(user).length && user.password) {

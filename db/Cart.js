@@ -80,23 +80,23 @@ async function getAllCarts() {
 }
 
 // FN: updateCartStatus
-async function updateCartStatus({ active }) {
+async function updateCartStatus(active, usersId) {
     try {
-      const {rows: [cart]} = await client.query(`
-          UPDATE cart
-          SET active = true
-          WHERE carts.usersID= $1
-          RETURNING *;
+    const {rows: [cart]} = await client.query(`
+        UPDATE cart
+        SET active=$1
+        WHERE cart."usersId"=$2
+        RETURNING *;
         `,
-        [active]
-      );
+        [active, usersId]
+    );
 
-      return cart;
-    } catch (error) {
-      console.error('Error Updating Cart Status! ');
-      console.log(error);
+    return cart;
+} catch (error) {
+    console.error('Error Updating Cart Status! ');
+    console.log(error);
     }
-  }
+}
 
 module.exports = {
     createCart,

@@ -4,6 +4,7 @@ const { getCandyById } = require("../db/Candy");
 const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
 const { getCartItemsBy } = require('../db/CartItems');
+const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
 // Create Cart
@@ -19,10 +20,11 @@ cartRouter.get("/", async (req, res, next) => {
 
 // get cart 
 cartRouter.post("/", async (req, res, next) => {
-//   const { cartId, usersId, active } = req.body;
+    const { cartId, usersId, active } = req.body;
+console.log("Is this working", req.body)
 
     try {
-        const existingCart = await getCartByUsersId(usersId);
+        const existingCart = await getCartByUserId(usersId);
 
         if (existingCart) {
             next({
@@ -37,8 +39,8 @@ cartRouter.post("/", async (req, res, next) => {
             active
         });
         res.send(newCart);
-    } catch ({ name, message }) {
-        next({ name, message });
+    } catch (error) {
+        console.error(error);
     }
 });
 
@@ -54,6 +56,25 @@ cartRouter.get("/:usersId", async (req, res, next) => {
     }
 });
 // build a patch route for updating the status
+cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
+    try {
+        const { active, usersId } = req.body;
+        // const updatedActivity = {}
+        // updatedActivity.cartId = userId
+        if (usersId === req.user.id) {
+            const updateStatus = await updateCartStatus(active, usersId)
+            res.send("Your cart was Update!")
+        } else {
+            next({
+                name: 'Cart does not match logged in user',
+                message: 'Please login'
+            })
+        }
+
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 // post
 // cartRouter.post/("/:usersId", async (req, res, next) => {}
