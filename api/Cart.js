@@ -4,6 +4,7 @@ const { getCandyById } = require("../db/Candy");
 const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
 const { getCartItemsBy } = require('../db/CartItems');
+const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
 // Create Cart
@@ -54,6 +55,26 @@ cartRouter.get("/:usersId", async (req, res, next) => {
     }
 });
 // build a patch route for updating the status
+cartRouter.patch("/:cartId", requireUser, async  (req, res, next) => {
+    try {
+        const { cartId } = req.params;
+        const { active } = req.body;
+        const updatedActivity = {}
+        updatedActivity.cartId = cartId
+        if (updatedActivity.cartId === req.user.userId) {
+            const updateStatus = await updateCartStatus(active)
+            res.send(updateStatus)
+        } else {
+            next({
+                name: 'Cart Is Empty',
+                message: 'Cannot check out until items are in the cart'
+            })
+        }
+
+    } catch ({name, message}) {
+        next({name, message})
+    }
+})
 
 // post
 // cartRouter.post/("/:usersId", async (req, res, next) => {}
