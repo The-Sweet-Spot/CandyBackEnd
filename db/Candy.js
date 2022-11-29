@@ -1,13 +1,13 @@
 const { client } = require('./index')
 
-async function createCandy({candyName, price, candyDescription, stock}) {
+async function createCandy({candyName, candyDescription, stock, price, image}) {
     try {
         const { rows: [candy] } = await client.query(`
-        INSERT INTO candy("candyName", price, "candyDescription", stock)
-        VALUES($1, $2, $3, $4)
+        INSERT INTO candy("candyName", "candyDescription", stock, price, image)
+        VALUES($1, $2, $3, $4, $5)
         ON CONFLICT ("candyName") DO NOTHING
         RETURNING *;
-        `, [candyName, price, candyDescription, stock]);
+        `, [candyName, candyDescription, stock, price, image]);
         return candy;
     } catch (error) {
         console.error(error)

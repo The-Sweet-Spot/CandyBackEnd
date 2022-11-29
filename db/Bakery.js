@@ -33,7 +33,7 @@ async function getAllBakedGoodsByName (bakedGoodsName) {
         const { rows : [bakery] } = await client.query(`
         SELECT *
         FROM baked_goods
-        WHERE "bakedId"=$1;
+        WHERE "bakedGoodsName"=$1;
         `, [bakedGoodsName]);
 
         return bakery;
@@ -43,14 +43,14 @@ async function getAllBakedGoodsByName (bakedGoodsName) {
     }
 }
 
-async function createBakedGoods ({bakedGoodsName, bakedDescription, stock ,price}) {
+async function createBakedGoods ({bakedGoodsName, bakedDescription, stock ,price, image}) {
     try{
         const { rows: [bakery] } = await client.query(`
-        INSERT INTO baked_goods ("bakedGoodsName", "bakedDescription", stock, price)
-        VALUES($1, $2, $3, $4)
+        INSERT INTO baked_goods ("bakedGoodsName", "bakedDescription", stock, price, image)
+        VALUES($1, $2, $3, $4, $5)
         ON CONFLICT ("bakedGoodsName") DO NOTHING
         RETURNING *;
-        `, [bakedGoodsName, bakedDescription, stock, price]);
+        `, [bakedGoodsName, bakedDescription, stock, price, image]);
 
         return bakery;
     } catch (error) {

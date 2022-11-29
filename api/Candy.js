@@ -19,8 +19,9 @@ candyRouter.get("/", async (req, res, next) => {
         console.log(error)
     }
 })
-candyRouter.get("/:candyid", async (req, res, next) => {
+candyRouter.get("/:candyId", async (req, res, next) => {
     try {
+        const { candyId } = req.params
         const response = await getCandyById(candyId);
         res.send(
             response
@@ -29,16 +30,16 @@ candyRouter.get("/:candyid", async (req, res, next) => {
         console.log(error)
     }
 })
-candyRouter.get("/:candyname", async (req, res, next) => {
-    try {
-        const response = await getCandyByName(candyName);
-        res.send(
-            response
-        )
-    } catch (error) {
-        console.log(error)
-    }
-})
+// candyRouter.get("/:candyname", async (req, res, next) => {
+//     try {
+//         const response = await getCandyByName(candyName);
+//         res.send(
+//             response
+//         )
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
 
 module.exports = {
     candyRouter
