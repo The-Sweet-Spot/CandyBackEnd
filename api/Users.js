@@ -2,10 +2,12 @@ const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
+const bcrypt = require('bcrypt')
 require('dotenv').config();
 const { getAllUsers,
         getUserByUsername,
-        createUser } = require('../db/Users');
+        createUser,
+        } = require('../db/Users');
 
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /users");
@@ -72,15 +74,26 @@ usersRouter.post("/register", async (req, res, next) => {
       });
     }
 
-    const user = await createUser({
+    // const user = await createUser({
+    //   username,
+    //   password,
+    //   email
+    // });
+    const saltValForPW = await bcrypt.genSalt(10);
+    console.log("I'm the salt for password: ", saltValForPW)
+    const hashedPassword = await bcrypt.hash(password, saltValForPW);
+    console.log("I'm the hashed for password: ", hashedPassword)
+    const saltValForEmail = await bcrypt.genSalt(10);
+    const hashedEmail = await bcrypt.hash(email, saltValForEmail)
+    const newUserData = await createUser({
       username,
-      password,
-      email
-    });
-
+      password: hashedPassword,
+      email: hashedEmail
+  })
+  console.log("I'm new user data: ", newUserData)
     const token = jwt.sign(
       {
-        id: user.id,
+        id: newUserData.id,
         username
       },
       JWT_SECRET,
@@ -89,6 +102,9 @@ usersRouter.post("/register", async (req, res, next) => {
       }
     );
 
+    
+
+    console.log('This is newUserData: ', newUserData)
     res.send({
       message: "thank you for signing up",
       token
