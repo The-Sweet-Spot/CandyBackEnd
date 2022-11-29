@@ -53,6 +53,27 @@ cartRouter.get("/:usersId", async (req, res, next) => {
         console.log(error)
     }
 });
+// get candy
+cartRouter.post('/:cartId/candy', async (req, res, next) => {
+    const { candyId } = req.params
+    try {
+        const candy = await getCandyById(candyId);
+        res.send({ candy })
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+// GET/baked
+cartRouter.post('/:cartId/baked', async (req, res, next) => {
+    const { bakedId } = req.params
+    try {
+        const bakery = await getAllBakedGoodsById(bakedId);
+        res.send({ bakery })
+    } catch (error) {
+        console.log(error)
+    }
+});
 
 // post
 // cartRouter.post/("/:usersId", async (req, res, next) => {}
