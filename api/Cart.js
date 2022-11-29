@@ -76,9 +76,6 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
     }
 })
 
-// post
-// cartRouter.post/("/:usersId", async (req, res, next) => {}
-
 // cartItemsId patch
 // cartRouter.patch("/:usersId/:cartItemsId", async (req, res, next) => {
 //     try {
@@ -117,12 +114,6 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
 // });
 
 module.exports = {cartRouter};
-
-// comment so I can push
-
-// need patch to get cart status( active, pending, shipped, etc)
-
-// patch update copy and paste
 
 // get candy
 cartRouter.post('/:cartId/candy', async (req, res, next) => {
