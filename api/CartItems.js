@@ -20,7 +20,7 @@ cartItemsRouter.delete("/:cartItemsId", async (req, res, next) => {
     try {
         const cartItems = await getCartItemsById(cartItemsId);
         const cart = await getCartById(cartItems.cartId);
-        if (req.user.id === cart.userId) {
+        if (req.user.id === cart.usersId) {
             const removeItem = await destroyCartItems(cartItemsId);
             res.send(removeItem)
         } else {
