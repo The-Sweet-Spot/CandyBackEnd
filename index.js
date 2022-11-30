@@ -5,11 +5,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { apiRouter } = require('./api/index');
 const { client } = require('./db/index');
+const cors = require('cors')
 
 
 const app = express();
 //Middleware
 app.use(morgan('dev'));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded( { extended: false } ));
 // async function decryptJWT(req, res, next) {
