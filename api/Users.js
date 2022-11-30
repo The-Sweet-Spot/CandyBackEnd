@@ -134,8 +134,8 @@ usersRouter.get('/me', async (req, res, next) => {
         user
       })
     }
-  } catch ({ name, message }) {
-    next({ name, message })
+  } catch (error) {
+    console.error(error)
   }
 });
 

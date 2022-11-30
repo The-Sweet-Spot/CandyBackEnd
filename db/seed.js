@@ -585,21 +585,18 @@ async function createInitialCartItems() {
         console.log("creating initial cart items for cart")
         await createCartItem({
             cartId: 1,
-            cartItemsId: 1,
             bakedId: 1,
             candyId: 4,
             price_bought_at: 5.00
         });
         await createCartItem({
             cartId: 2,
-            cartItemsId: 2,
             bakedId: 2,
             candyId: 3,
             price_bought_at: 5.00
         });
         await createCartItem({
             cartId: 3,
-            cartItemsId: 3,
             bakedId: 1,
             candyId: 5,
             price_bought_at: 5.00
@@ -607,7 +604,6 @@ async function createInitialCartItems() {
         // extra 4
         await createCartItem({
             cartId: 1,
-            cartItemsId: 4,
             bakedId: 1,
             candyId: 5,
             price_bought_at: 5.00
@@ -615,7 +611,6 @@ async function createInitialCartItems() {
         // 5
         await createCartItem({
             cartId: 2,
-            cartItemsId: 5,
             bakedId: 2,
             candyId: 4,
             price_bought_at: 5.00
@@ -623,7 +618,6 @@ async function createInitialCartItems() {
         // 6
         await createCartItem({
             cartId: 3,
-            cartItemsId: 6,
             bakedId: 2,
             candyId: 2,
             price_bought_at: 5.00
