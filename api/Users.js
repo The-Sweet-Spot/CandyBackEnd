@@ -73,12 +73,16 @@ usersRouter.post("/register", async (req, res, next) => {
     const _user = await getUserByUsername(username);
 
     if (_user) {
-      next({
+      console.log("I exist", _user)
+      res.status(409).send({
         name: "UserExistsError",
         message: "A user by that name already exists",
+        status: 409
       });
-    }
+    } else{
 
+    
+    
     // const user = await createUser({
     //   username,
     //   password,
@@ -109,14 +113,17 @@ usersRouter.post("/register", async (req, res, next) => {
     );
 
     
-
+    delete newUserData.password
     console.log('This is newUserData: ', newUserData)
-    res.send({
+    res.status(200).send({
       message: "thank you for signing up",
+      newUserData,
       token
     });
-  } catch ({ name, message }) {
-    next({ name, message });
+  }
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
   }
 });
 
