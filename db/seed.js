@@ -236,7 +236,7 @@ async function createInitialBakery () {
             bakedDescription:'A braided yeast bread that goes amazing if you full it with pudding,poppyseeds, chocolate, or nuts.',
             stock:'90',
             price:'10',
-            image:"https://www.shelovesbiscotti.com/wp-content/uploads/2017/03/Italian-Easterbread-2.jpg"
+            image:"https://images.eatsmarter.com/sites/default/files/styles/1600x1200/public/braided-bread-easter-basket-611748.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Irish Coffee Macarons',
@@ -250,7 +250,7 @@ async function createInitialBakery () {
             bakedDescription:'A gluten free delicious crispy, chocolatey peanunt butter cookies with coconunt sugar instead of brown sugar which adds a fine caramel flavor',
             stock:'1500',
             price:'5.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FE6A0JYfo59vIt5Ac73RtWfNI7pw%3D%2F864x648%2Fimages.kitchenstories.io%2FrecipeImages%2FR662-photofinal-4x3.jpg&w=1440&q=90"
+            image:"https://wildwildwhisk.com/wp-content/uploads/2018/12/Peanut-Butter-Chocolate-Chip-Cookies-3.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Simple Lemon Poppy Seed Muffins',
