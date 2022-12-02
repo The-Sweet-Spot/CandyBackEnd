@@ -522,7 +522,7 @@ async function createInitialCandy() {
             image: "https://d2aam04nmhpdf8.cloudfront.net/images/images/000/028/561/xlarge/12854_01.jpg?1557855537"
         });
         await createCandy({
-            xandyName: 'Trolli: Sour Bite Crawlers',
+            candyName: 'Trolli: Sour Bite Crawlers',
             candyDescription: "Dewing colored worms coated in citric acid. Grab a bite are stretched it out to rip the worm in two. Or stuff the multiple colored worm all in yourmouth.",
             stock: 1000,
             price: 3.65,
