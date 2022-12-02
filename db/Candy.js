@@ -2,6 +2,8 @@ const { client } = require('./index')
 
 async function createCandy({candyName, candyDescription, stock, price, image}) {
     try {
+        console.log("starting to creat ecandy", candyName)
+        
         const { rows: [candy] } = await client.query(`
         INSERT INTO candy("candyName", "candyDescription", stock, price, image)
         VALUES($1, $2, $3, $4, $5)
