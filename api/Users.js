@@ -130,13 +130,15 @@ usersRouter.post("/register", async (req, res, next) => {
 
 usersRouter.get('/me', async (req, res, next) => {
   try {
+    console.log("this is req.user", req.user)
     if (!req.user) {
       next({
         name: "InvalidUserError",
         message: "You must be logged in to view your profile"
       })
     } else {
-      const user = getUserByUsername(req.user.username);
+      const user = await getUserByUsername(req.user.username);
+      console.log('what are we sending', user)
       res.send({
         user
       })

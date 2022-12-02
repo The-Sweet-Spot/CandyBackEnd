@@ -20,7 +20,7 @@ apiRouter.use(async (req, res, next) => {
             const verifiedData = await jwt.verify(token, JWT_SECRET);
             console.log("this is verifiedData", verifiedData)
                 if (verifiedData.id) {
-                    console.log("we have id")
+                    
                     req.user = {
                         id: verifiedData.id,
                         username: verifiedData.username
