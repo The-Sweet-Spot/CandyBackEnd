@@ -229,14 +229,14 @@ async function createInitialBakery () {
             bakedDescription: "A cake that is gluten-free, being a mixture of eggs, ground almonds, cooked, oranges, and sugar.",
             stock:'1209',
             price:'32.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FSH6kG_WX3udDNUV_Mg7OHqUI9x8%3D%2F864x648%2Fimages.kitchenstories.io%2FrecipeImages%2FR1022-photofinal-4x3.jpg&w=768&q=90"
+            image:"https://bakeplaysmile.com/wp-content/uploads/2022/07/Orange-Almond-Cake-1-4-2.jpg"
             });
         await createBakedGoods({
             bakedGoodsName: 'Braided Easter bread',
             bakedDescription:'A braided yeast bread that goes amazing if you full it with pudding,poppyseeds, chocolate, or nuts.',
             stock:'90',
             price:'10',
-            image:"https://www.shelovesbiscotti.com/wp-content/uploads/2017/03/Italian-Easterbread-2.jpg"
+            image:"https://images.eatsmarter.com/sites/default/files/styles/1600x1200/public/braided-bread-easter-basket-611748.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Irish Coffee Macarons',
@@ -250,7 +250,7 @@ async function createInitialBakery () {
             bakedDescription:'A gluten free delicious crispy, chocolatey peanunt butter cookies with coconunt sugar instead of brown sugar which adds a fine caramel flavor',
             stock:'1500',
             price:'5.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FE6A0JYfo59vIt5Ac73RtWfNI7pw%3D%2F864x648%2Fimages.kitchenstories.io%2FrecipeImages%2FR662-photofinal-4x3.jpg&w=1440&q=90"
+            image:"https://wildwildwhisk.com/wp-content/uploads/2018/12/Peanut-Butter-Chocolate-Chip-Cookies-3.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Simple Lemon Poppy Seed Muffins',
@@ -271,7 +271,7 @@ async function createInitialBakery () {
             bakedDescription:'A delicious classic german cheesecake that uses quark in the filling and leaves you wanting more!',
             stock:'600',
             price:'40.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FEXCtXbexTwPRoxBaUmO3o92KnCI%3D%2F768x576%2Fimages.kitchenstories.io%2FrecipeImages%2FR743-photofinal-4x3.jpg&w=1440&q=85"
+            image:"https://mydinner.co.uk/wp-content/uploads/2021/05/German-Cheesecake1.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Flourless Chocolate Cake',
@@ -285,14 +285,14 @@ async function createInitialBakery () {
             bakedDescription:'I think we can agree that coffee is a very desired flavor that most enjoy, well thismarbled coffee cake is a very creamy delicious texture in the inside with a nice harded texture in the outside!',
             stock:'23',
             price:'45.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FkBkxL4sNNOVgyDIIOtMY3W2yr8%3D%2F768x576%2Fimages.kitchenstories.io%2FrecipeImages%2FMarbleCake_final1.jpg&w=1440&q=85"
+            image:"https://images-gmi-pmc.edge-generalmills.com/e2d723ab-8502-48b3-afb7-3b0031c92304.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Chewy Chocolate Chip Cookies',
             bakedDescription:'Do you enjoy a classic chocolate chip cookie, well this chewy one I am sure will leave you wanting more after santa is done with them.',
             stock:'5000',
             price:'4.00',
-            image:"https://www.kitchenstories.com/_next/image?url=https%3A%2F%2Fimages.services.kitchenstories.io%2FtfTXMLTDGaCDNsAlGve3KBTXn0%3D%2F768x576%2Fimages.kitchenstories.io%2FrecipeImages%2FChewyChocolateChipCookies_Final.jpg&w=768&q=85"
+            image:"https://www.modernhoney.com/wp-content/uploads/2017/11/Thin-and-Crispy-Chocolate-Chip-Cookies-2.jpg"
             });
         await createBakedGoods({
             bakedGoodsName:'Fudy Brownies',

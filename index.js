@@ -5,11 +5,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { apiRouter } = require('./api/index');
 const { client } = require('./db/index');
+const cors = require('cors')
 
 
 const app = express();
 //Middleware
 app.use(morgan('dev'));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded( { extended: false } ));
 // async function decryptJWT(req, res, next) {
@@ -37,10 +39,10 @@ app.use(express.urlencoded( { extended: false } ));
 //step 5: use next() to pass it
 // app.use(decryptJWT)
 app.use('/api', apiRouter);
-
+const PORT = process.env.PORT || 3000
 client.connect();
-app.listen(3000, () => {
-    console.log(`We are now running on port 3000`)
+app.listen(PORT, () => {
+    console.log(`We are now running on port ${PORT}`)
 });
 
 module.exports = {
