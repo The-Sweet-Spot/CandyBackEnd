@@ -136,7 +136,7 @@ usersRouter.get('/me', async (req, res, next) => {
         message: "You must be logged in to view your profile"
       })
     } else {
-      const user = getUserByUsername(username);
+      const user = getUserByUsername(req.user.username);
       res.send({
         user
       })
