@@ -4,13 +4,13 @@ const {getCandyById} = require('./Candy')
 
 
 
-async function createCartItem({ cartId, price_bought_at, bakedId, candyId }) {
+async function createCartItem({ cartId, price_bought_at, sweetsId }) {
     try {
         const { rows: [ cartItem ] } = await client.query(`
-        INSERT INTO cart_items("cartId", "price_bought_at", "bakedId", "candyId")
-        VALUES($1, $2, $3, $4)
+        INSERT INTO cart_items("cartId", "price_bought_at", "sweetsId")
+        VALUES($1, $2, $3)
         RETURNING *;
-        `, [cartId, price_bought_at, bakedId, candyId])
+        `, [cartId, price_bought_at, sweetsId])
         return cartItem
     } catch (error) {
         console.log(error)
@@ -42,34 +42,59 @@ async function getCartItemByBakedId({bakedId}) {
         console.log(error)
     }
 }
-
-
-async function attachCartItemsToCart(cart_items) {
-    const idString = cart_items.map((el, ind) => {
-        return `$${ind + 1}`
-    }) .join(", ")
-    const idArr = cart_items.map((el) => {
-        return el.id
-    })
+async function getCartItemsByCartId(cartId) {
     try {
-        const { rows: [cart] } = await client.query(`
-        SELECT cart.*, cart_items."cartId", cart_items."cartItemsId", cart_items."cartItemsId" AS "cartItemsId"
-        FROM cart
-        JOIN cart_items ON baked_goods."bakedId"candy=cart_items."candyId"
-        WHERE cart_items."cartItemsId" IN (${idString});
-        `)
-        for (const cart_items of cart_items) {
-            const cartToAdd = cart.filter((cart) => {
-                return cart.cartId == cart_items.cartItemsIid
-            }
-            )
-            cart_items.cart = cartToAdd
-        }   
-        return cart
+        const {rows} = await client.query(`
+        SELECT *
+        FROM cart_items
+        WHERE "cartId"=$1;
+        `,[cartId])
+        return rows
     } catch (error) {
         console.log(error)
     }
 }
+
+async function attachCartItemsToCart(cartId) {
+    // const idString = cart_items.map((el, ind) => {
+    //     return `$${ind + 1}`
+    // }) .join(", ")
+    // const idArr = cart_items.map((el) => {
+    //     return el.id
+    // })
+    console.log("running attach items function")
+    try {
+        const { rows } = await client.query(`
+        SELECT *
+        FROM cart_items
+        JOIN baked_goods
+        ON cart_items."bakedId"=baked_goods."bakedId"
+        JOIN candy
+        ON cart_items."candyId"=candy."candyId"
+        WHERE cart_items."cartId"=$1;
+        `, [cartId])
+        // for (const cart_items of cart_items) {
+        //     const cartToAdd = cart.filter((cart) => {
+        //         return cart.cartId == cart_items.cartItemsId
+        //     }
+        //     )
+        //     cart_items.cart = cartToAdd
+        // }   
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+async function callAttachCartItemsToCart() {
+    try {
+        await attachCartItemsToCart(3)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 async function updateCartItems(cartItemsId, fields = {}) {
     if (fields.cartItemsId) delete fields.cartItemsId;
     const keys = Object.keys.map(
@@ -186,6 +211,7 @@ module.exports = {
     getCartItemsById,
     attachCartItemsToCart,
     getAllCartItemsByUser,
-    destroyCartItems
+    destroyCartItems,
+    getCartItemsByCartId
 }
 

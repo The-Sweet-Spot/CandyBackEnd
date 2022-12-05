@@ -1,9 +1,9 @@
 const express = require("express");
 const { getAllBakedGoodsById } = require("../db/Bakery");
 const { getCandyById } = require("../db/Candy");
-const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
+const { createCart, updateCart, updateCartStatus, getAllCarts, } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
-const { getCartItemsBy } = require('../db/CartItems');
+const { getCartItemsBy, attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
 const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
@@ -42,7 +42,14 @@ console.log("Is this working", req.body)
         console.error(error);
     }
 });
-
+cartRouter.get("/test", async (req, res, next) => {
+    try {
+        const fetchingCartItems = await attachCartItemsToCart(3)
+        res.send(fetchingCartItems)
+    } catch (error) {
+        console.log(error)
+    }
+})
 // usersId
 cartRouter.get("/:usersId", async (req, res, next) => {
     const { usersId } = req.params
