@@ -56,18 +56,19 @@ async function attachCartItemsToCart(cartId) {
         ON cart_items."sweetsId"=sweet_products."sweetsId"
         WHERE cart_items."cartId"=$1;
         `, [cartId])
-        const itemsInUsersCart = await getAllSweetProducts()
-        const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {
-            return cartItem.departmentId === 1;
-        })
-        const candyGoodsItems = itemsInUsersCart.filter(cartItem => {
-            return cartItem.departmentId === 2;
-        })
+        // const itemsInUsersCart = await getAllSweetProducts()
+        // const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {
+        //     return cartItem.departmentId === 1;
+        // })
+        // const candyGoodsItems = itemsInUsersCart.filter(cartItem => {
+        //     return cartItem.departmentId === 2;
+        // })
         return rows
     } catch (error) {
         console.log(error)
     }
 }
+attachCartItemsToCart(3)
 
 
 async function callAttachCartItemsToCart() {
@@ -95,7 +96,7 @@ async function updateCartItems(cartItemsId, fields = {}) {
         }
         if (!keys.length) {
             const candyStuff = await getAllSweetProducts(departmentId(2));
-            const bakedStuff = await getAllSweetProducts(departmentId(2));
+            const bakedStuff = await getAllSweetProducts(departmentId(1));
             const productArr = [candyStuff, bakedStuff]
             return productArr;
         }

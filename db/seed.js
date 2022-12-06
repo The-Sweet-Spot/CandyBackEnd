@@ -108,11 +108,9 @@ async function createInitialDepartments() {
     console.log("creating departments")
     try {
         await createDepartment({
-            departmentId: 1,
             departmentName: "Baked Goods"
         });
         await createDepartment({
-            departmentId: 2,
             departmentName: "Candy"
         });
         console.log("finished creating departments")
@@ -650,11 +648,6 @@ async function createInitialCartItems() {
             price_bought_at: 5.00
         });
         await createCartItem({
-            cartId: 2,
-            sweeetsId: 45,
-            price_bought_at: 5.00
-        });
-        await createCartItem({
             cartId: 3,
             sweetsId: 20,
             price_bought_at: 5.00
@@ -662,7 +655,7 @@ async function createInitialCartItems() {
         // extra 4
         await createCartItem({
             cartId: 1,
-            sweetsId: 23,
+            sweetsId: 45,
             price_bought_at: 5.00
         });
         // 5
@@ -675,6 +668,11 @@ async function createInitialCartItems() {
         await createCartItem({
             cartId: 3,
             sweetsId: 25,
+            price_bought_at: 5.00
+        });
+        await createCartItem({
+            cartId: 2,
+            sweetsId: 45,
             price_bought_at: 5.00
         });
         console.log("Finished creating cart items")

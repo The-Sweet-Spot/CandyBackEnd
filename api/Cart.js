@@ -3,7 +3,7 @@ const { getAllBakedGoodsById } = require("../db/Bakery");
 const { getCandyById } = require("../db/Candy");
 const { createCart, updateCart, updateCartStatus, getAllCarts, } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
-const { getCartItemsBy, attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
+const { attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
 const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
@@ -122,23 +122,23 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
 module.exports = {cartRouter};
 
 // get candy
-cartRouter.post('/:cartId/candy', async (req, res, next) => {
-    const { candyId } = req.params
-    try {
-        const candy = await getCandyById(candyId);
-        res.send({ candy })
-    } catch (error) {
-        console.log(error)
-    }
-});
+// cartRouter.post('/:cartId/candy', async (req, res, next) => {
+//     const { candyId } = req.params
+//     try {
+//         const candy = await getCandyById(candyId);
+//         res.send({ candy })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 
-// GET/baked
-cartRouter.post('/:cartId/baked', async (req, res, next) => {
-    const { bakedId } = req.params
-    try {
-        const bakery = await getAllBakedGoodsById(bakedId);
-        res.send({ bakery })
-    } catch (error) {
-        console.log(error)
-    }
-});
+// // GET/baked
+// cartRouter.post('/:cartId/baked', async (req, res, next) => {
+//     const { bakedId } = req.params
+//     try {
+//         const bakery = await getAllBakedGoodsById(bakedId);
+//         res.send({ bakery })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
