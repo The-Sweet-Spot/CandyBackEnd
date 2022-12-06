@@ -42,12 +42,21 @@ console.log("Is this working", req.body)
         console.error(error);
     }
 });
-cartRouter.get("/test", async (req, res, next) => {
+// cartRouter.get("/test", async (req, res, next) => {
+//     try {
+//         const fetchingCartItems = await attachCartItemsToCart(3)
+//         res.send(fetchingCartItems)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
+cartRouter.post("/:cartItemsId", async (req, res, next) => {
     try {
-        const fetchingCartItems = await attachCartItemsToCart(3)
-        res.send(fetchingCartItems)
+        const {cartId} = req.body
+        const fetchingCartItems = await attachCartItemsToCart(cartId)
+        res.send(fetchingCartItems) 
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 })
 // usersId
