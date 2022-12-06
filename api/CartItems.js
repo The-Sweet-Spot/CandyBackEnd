@@ -6,20 +6,55 @@ const {
     getCartItemsById,
     attachCartItemsToCart,
     getAllCartItemsByUser,
-    destroyCartItems
+    destroyCartItems,
+    fetchCartItemsByCartId
 } = require('../db/CartItems')
-const { getCartById } = require('../db/Cart')
+const { getCartById, getCartByUserId } = require('../db/Cart')
 
-cartItemsRouter.get("/:cartItemsId", async (req, res, next) => {
+// cartItemsRouter.get("/:cartItemsId", async (req, res, next) => {
+//     try {
+//         const { cartItemsId } = req.params
+//         const currentItemsInCart = await getCartItemsById(cartItemsId)
+//         res.send(currentItemsInCart)
+//     } catch (error) {
+//         console.error(error)
+//     }
+// })
+cartItemsRouter.get("/mycart", async (req, res, next) => {
     try {
-        const { cartItemsId } = req.params
-        const currentItemsInCart = await getCartItemsById(cartItemsId)
-        res.send(currentItemsInCart)
+        console.log("starting handler")
+    
+        console.log("this is req.user", req.user.id)
+        const isUserWithCart = await getCartByUserId(req.user.id)
+        console.log("is user with cart?", isUserWithCart)
+        if (req.user.id === isUserWithCart.usersId) {
+        const getMyStuffInTheCart = await fetchCartItemsByCartId(isUserWithCart.cartId)
+        console.log("Finish running function", isUserWithCart.cartId)
+        res.send(getMyStuffInTheCart)
+        } else {
+            res.status(401).send({message: "You are IMPOSTER!"})
+        }
     } catch (error) {
         console.error(error)
     }
 })
+cartItemsRouter.post("/add/:sweetsId", async (req, res, next) => {
+    try {
+        const {sweetsId} = req.params
+        const {cartId, price_bought_at, usersId} = req.body
+        console.log("this is req.user", req.user.id, usersId)
+        if (req.user.id === usersId){
 
+            const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId, price_bought_at})
+            res.send(fetchingCartItems)
+        } else {
+            res.status(401).send({message: "You are IMPOSTER!"})
+        }
+    
+    } catch (error) {
+        console.error(error)
+    }
+})
 cartItemsRouter.delete("/:cartItemsId", async (req, res, next) => {
     const {cartItemsId} = req.params;
     try {
