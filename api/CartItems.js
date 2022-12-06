@@ -3,17 +3,22 @@ const cartItemsRouter = express.Router();
 const {
     createCartItem,
     updateCartItems,
-    removeBakedCartItem,
-    removeCandyCartItem,
     getCartItemsById,
-    getCartItemByBakedId,
-    getCartItemByCandyId,
     attachCartItemsToCart,
     getAllCartItemsByUser,
     destroyCartItems
 } = require('../db/CartItems')
 const { getCartById } = require('../db/Cart')
 
+cartItemsRouter.get("/:cartItemsId", async (req, res, next) => {
+    try {
+        const { cartItemsId } = req.params
+        const currentItemsInCart = await getCartItemsById(cartItemsId)
+        res.send(currentItemsInCart)
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 cartItemsRouter.delete("/:cartItemsId", async (req, res, next) => {
     const {cartItemsId} = req.params;

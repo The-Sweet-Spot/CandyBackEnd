@@ -1,9 +1,9 @@
 const express = require("express");
 const { getAllBakedGoodsById } = require("../db/Bakery");
 const { getCandyById } = require("../db/Candy");
-const { createCart, updateCart, updateCartStatus, getAllCarts } = require("../db/Cart");
+const { createCart, updateCart, updateCartStatus, getAllCarts, } = require("../db/Cart");
 const { getCartByUserId } = require("../db/Cart");
-const { getCartItemsBy } = require('../db/CartItems');
+const { attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
 const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
@@ -42,7 +42,14 @@ console.log("Is this working", req.body)
         console.error(error);
     }
 });
-
+cartRouter.get("/test", async (req, res, next) => {
+    try {
+        const fetchingCartItems = await attachCartItemsToCart(3)
+        res.send(fetchingCartItems)
+    } catch (error) {
+        console.log(error)
+    }
+})
 // usersId
 cartRouter.get("/:usersId", async (req, res, next) => {
     const { usersId } = req.params
@@ -62,7 +69,7 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
         // updatedActivity.cartId = userId
         if (usersId === req.user.id) {
             const updateStatus = await updateCartStatus(active, usersId)
-            res.send("Your cart was Update!")
+            res.send("Your cart was Update!", updateStatus)
         } else {
             next({
                 name: 'Cart does not match logged in user',
@@ -115,23 +122,23 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
 module.exports = {cartRouter};
 
 // get candy
-cartRouter.post('/:cartId/candy', async (req, res, next) => {
-    const { candyId } = req.params
-    try {
-        const candy = await getCandyById(candyId);
-        res.send({ candy })
-    } catch (error) {
-        console.log(error)
-    }
-});
+// cartRouter.post('/:cartId/candy', async (req, res, next) => {
+//     const { candyId } = req.params
+//     try {
+//         const candy = await getCandyById(candyId);
+//         res.send({ candy })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 
-// GET/baked
-cartRouter.post('/:cartId/baked', async (req, res, next) => {
-    const { bakedId } = req.params
-    try {
-        const bakery = await getAllBakedGoodsById(bakedId);
-        res.send({ bakery })
-    } catch (error) {
-        console.log(error)
-    }
-});
+// // GET/baked
+// cartRouter.post('/:cartId/baked', async (req, res, next) => {
+//     const { bakedId } = req.params
+//     try {
+//         const bakery = await getAllBakedGoodsById(bakedId);
+//         res.send({ bakery })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
