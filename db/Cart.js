@@ -97,13 +97,25 @@ async function updateCartStatus(active, usersId) {
     console.log(error);
     }
 }
-
+async function getCartById(cartId) {
+    try {
+        const {rows: [cart]} = await client.query(`
+        SELECT *
+        FROM cart
+        WHERE "cartId"=$1;
+        `, [cartId])
+        return cart
+    } catch (error) {
+        console.error(error)
+    }
+}
 module.exports = {
     createCart,
     getAllCarts,
     getCartByUserId,
     updateCart,
-    updateCartStatus
+    updateCartStatus,
+    getCartById
 };
 
 

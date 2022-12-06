@@ -46,16 +46,16 @@ async function getCartItemsByCartId(cartId) {
     }
 }
 
-async function attachCartItemsToCart(cartId) {
+async function attachCartItemsToCart({sweetsId, cartId}) {
     console.log("running attach items function")
     try {
         const { rows } = await client.query(`
         SELECT *
         FROM cart_items
         JOIN sweet_products
-        ON cart_items."sweetsId"=sweet_products."sweetsId"
-        WHERE cart_items."cartId"=$1;
-        `, [cartId])
+        ON cart_items."sweetsId"=$1
+        WHERE cart_items."cartId"=$2;
+        `, [sweetsId, cartId])
         // const itemsInUsersCart = await getAllSweetProducts()
         // const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {
         //     return cartItem.departmentId === 1;
