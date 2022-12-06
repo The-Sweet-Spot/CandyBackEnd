@@ -46,16 +46,13 @@ async function getCartItemsByCartId(cartId) {
     }
 }
 
-async function attachCartItemsToCart({sweetsId, cartId}) {
+async function attachCartItemsToCart({cartId, sweetsId, price_bought_at}) {
     console.log("running attach items function")
     try {
         const { rows } = await client.query(`
-        SELECT *
-        FROM cart_items
-        JOIN sweet_products
-        ON cart_items."sweetsId"=$1
-        WHERE cart_items."cartId"=$2;
-        `, [sweetsId, cartId])
+        INSERT INTO cart_items("cartId", "sweetsId", price_bought_at)
+        VALUES($1, $2, $3);
+        `, [cartId, sweetsId, price_bought_at])
         // const itemsInUsersCart = await getAllSweetProducts()
         // const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {
         //     return cartItem.departmentId === 1;
@@ -68,7 +65,21 @@ async function attachCartItemsToCart({sweetsId, cartId}) {
         console.log(error)
     }
 }
-attachCartItemsToCart(3)
+async function fetchCartItemsByCartId(cartId) {
+    console.log("fetching cart items by cart id")
+    try {
+        const { rows } = await client.query(`
+        SELECT *
+        FROM cart_items
+        JOIN sweet_products
+        ON cart_items."sweetsId"=sweet_products."sweetsId"
+        WHERE cart_items."cartId"=$1;
+        `, [cartId])
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 async function callAttachCartItemsToCart() {
@@ -170,6 +181,7 @@ module.exports = {
     attachCartItemsToCart,
     getAllCartItemsByUser,
     destroyCartItems,
-    getCartItemsByCartId
+    getCartItemsByCartId,
+    fetchCartItemsByCartId
 }
 

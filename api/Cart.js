@@ -2,7 +2,7 @@ const express = require("express");
 const { getAllBakedGoodsById } = require("../db/Bakery");
 const { getCandyById } = require("../db/Candy");
 const { createCart, updateCart, getCartByUserId, updateCartStatus, getAllCarts, getCartById, } = require("../db/Cart");
-const { attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
+const { attachCartItemsToCart, getCartItemsByCartId, fetchCartItemsByCartId } = require('../db/CartItems');
 const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
@@ -53,7 +53,6 @@ cartRouter.post("/add/:sweetsId", async (req, res, next) => {
     try {
         const {sweetsId} = req.params
         const {cartId} = req.body
-        const cart = await getCartById(cartId)
         console.log("this is req.user", req.user.id, cart.usersId, cart)
         if (req.user.id === cart.usersId){
 
