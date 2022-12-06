@@ -17,7 +17,47 @@ async function createSweetProduct({sweetsName, description, stock, price, image,
         console.log(error)
     }
 }
+async function getAllSweetProducts() {
+    try {
+        const { rows } = await client.query(`
+        SELECT *
+        FROM sweet_products;
+        `);
+        return rows
+    } catch (error) {
+        console.error(error)
+    }
+}
+async function getSweetProductById(sweetsId) {
+    try {
+        const { rows: [sweet_products] } = await client.query (`
+        SELECT *
+        FROM sweet_products
+        WHERE "sweetsId"=$1;
+        `, [sweetsId]);
+        return sweet_products;
+    } catch (error){
+        console.log(error)
+    }
+}
+
+async function getSweetProductByName(sweetsName) {
+    try{
+        const { rows : [sweet_products] } = await client.query(`
+        SELECT *
+        FROM sweet_products
+        WHERE "sweetsName"=$1;
+        `, [sweetsName]);
+
+        return sweet_products;
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 module.exports = {
-    createSweetProduct
+    createSweetProduct,
+    getAllSweetProducts,
+    getSweetProductByName,
+    getSweetProductById
 }

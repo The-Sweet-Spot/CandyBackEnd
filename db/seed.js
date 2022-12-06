@@ -4,8 +4,8 @@ const { client } = require('./index')
 const { createUser, getAllUsers } = require('./Users')
 const { updateCart, createCart, getCartByUserId } = require('./Cart');
 const { createCartItem, getCartItemsById } = require('./CartItems')
-const { createSweetProduct} = require('./SweetProducts');
-const { createDepartment } = require('./Department');
+const { createSweetProduct, getAllSweetProducts} = require('./SweetProducts');
+const { createDepartment, getAllDepartments } = require('./Department');
 // Imports
 // const {} = require('./Bakery');
 
@@ -688,6 +688,14 @@ async function testDB() {
         console.log("calling getAllUsers")
         const user = await getAllUsers();
         console.log("results ", user)
+        
+        console.log("calling all sweet products")
+        const sweets = await getAllSweetProducts();
+        console.log("results", sweets)
+
+        console.log("calling all departments")
+        const departments = await getAllDepartments();
+        console.log("results", departments)
 
         console.log("Calling Carts: ")
         const newCart = await getCartByUserId(4);

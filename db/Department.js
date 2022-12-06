@@ -12,9 +12,33 @@ async function createDepartment({departmentId, departmentName}) {
         console.error(error)
     }
 }
-
+async function getAllDepartments() {
+    try {
+        const { rows } = await client.query(`
+        SELECT *
+        FROM department;
+        `);
+        return rows
+    } catch (error) {
+        console.error(error)
+    }
+}
+async function getDepartmentById(departmentId) {
+    try {
+        const { rows } = await client.query(`
+        SELECT *
+        FROM department
+        WHERE "departmentId"=$1;
+        `, [departmentId])
+        return rows
+    } catch (error) {
+        console.error(error)
+    }
+}
 module.exports = {
-    createDepartment
+    createDepartment,
+    getAllDepartments,
+    getDepartmentById
 }
 
 //createDepartment

@@ -1,6 +1,10 @@
 const { client } = require('./index')
-const {getAllBakedGoodsById} = require('./Bakery')
-const {getCandyById} = require('./Candy')
+const {
+    createSweetProduct,
+    getAllSweetProducts,
+    getSweetProductByName,
+    getSweetProductById
+} = require('./SweetProducts')
 
 
 
@@ -17,27 +21,14 @@ async function createCartItem({ cartId, price_bought_at, sweetsId }) {
     }
 }
 
-async function getCartItemByCandyId({candyId}) {
+async function getCartItemBySweetsId({sweetsId}) {
     try {
         const { rows: [ cartItem ] } = await client.query(`
         SELECT *
         FROM cart_Items
         WHERE id=$1;
-        `, [candyId])
+        `, [sweetsId])
         return cartItem
-    } catch (error) {
-        console.log(error)
-    }
-
-}
-async function getCartItemByBakedId({bakedId}) {
-    try {
-        const { rows: [bakedItem] } = await client.query(`
-        SELECT *
-        FROM cart_Items
-        WHERE "cartItemsId"=$1;
-        `, [bakedId])
-        return bakedItem
     } catch (error) {
         console.log(error)
     }
@@ -56,30 +47,22 @@ async function getCartItemsByCartId(cartId) {
 }
 
 async function attachCartItemsToCart(cartId) {
-    // const idString = cart_items.map((el, ind) => {
-    //     return `$${ind + 1}`
-    // }) .join(", ")
-    // const idArr = cart_items.map((el) => {
-    //     return el.id
-    // })
     console.log("running attach items function")
     try {
         const { rows } = await client.query(`
         SELECT *
         FROM cart_items
-        JOIN baked_goods
-        ON cart_items."bakedId"=baked_goods."bakedId"
-        JOIN candy
-        ON cart_items."candyId"=candy."candyId"
+        JOIN sweet_products
+        ON cart_items."sweetsId"=sweet_products."sweetsId"
         WHERE cart_items."cartId"=$1;
         `, [cartId])
-        // for (const cart_items of cart_items) {
-        //     const cartToAdd = cart.filter((cart) => {
-        //         return cart.cartId == cart_items.cartItemsId
-        //     }
-        //     )
-        //     cart_items.cart = cartToAdd
-        // }   
+        const itemsInUsersCart = await getAllSweetProducts()
+        const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {
+            return cartItem.departmentId === 1;
+        })
+        const candyGoodsItems = itemsInUsersCart.filter(cartItem => {
+            return cartItem.departmentId === 2;
+        })
         return rows
     } catch (error) {
         console.log(error)
@@ -111,8 +94,8 @@ async function updateCartItems(cartItemsId, fields = {}) {
         return rows;
         }
         if (!keys.length) {
-            const candyStuff = await getCartItemByCandyId(candyId);
-            const bakedStuff = await getCartItemByBakedId(bakedId);
+            const candyStuff = await getAllSweetProducts(departmentId(2));
+            const bakedStuff = await getAllSweetProducts(departmentId(2));
             const productArr = [candyStuff, bakedStuff]
             return productArr;
         }
@@ -135,28 +118,6 @@ async function updateCartItems(cartItemsId, fields = {}) {
 //         console.log(error)
 //     }
 // }
-
-async function removeCandyCartItem(candyId) {
-    try {
-        await client.query(`
-        DELETE FROM cart_items
-        WHERE "candyId"=$1;
-        `, [candyId])
-    } catch (error) {
-        console.error(error)
-    }
-}
-async function removeBakedCartItem(bakedId) {
-    try {
-        await client.query(`
-        DELETE FROM cart_items
-        WHERE "bakedId"=$1;
-        `, [bakedId])
-    } catch (error) {
-        console.error(error)
-    }
-}
-
 
 async function getAllCartItemsByUser({ username }) {
     try {
@@ -203,11 +164,7 @@ async function destroyCartItems(cartItemsId) {
 module.exports = {
     createCartItem,
     updateCartItems,
-    removeBakedCartItem,
-    removeCandyCartItem,
-    // getAllCartItems,
-    getCartItemByBakedId,
-    getCartItemByCandyId,
+    getCartItemBySweetsId,
     getCartItemsById,
     attachCartItemsToCart,
     getAllCartItemsByUser,

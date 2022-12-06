@@ -69,7 +69,7 @@ cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
         // updatedActivity.cartId = userId
         if (usersId === req.user.id) {
             const updateStatus = await updateCartStatus(active, usersId)
-            res.send("Your cart was Update!")
+            res.send("Your cart was Update!", updateStatus)
         } else {
             next({
                 name: 'Cart does not match logged in user',

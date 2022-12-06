@@ -40,13 +40,13 @@ apiRouter.use(async (req, res, next) => {
     });
 
 // Routers
-const {bakeRouter} = require('./Bakery');
-const {candyRouter} = require('./Candy');
+const {departmentRouter} = require('./Department');
+const {sweetsRouter} = require('./SweetProducts');
 const {cartRouter} = require('./Cart');
 const {usersRouter} = require('./Users');
 const {cartItemsRouter} = require('./CartItems')
-apiRouter.use('/bakery', bakeRouter);
-apiRouter.use('/candy', candyRouter);
+apiRouter.use('/department', departmentRouter);
+apiRouter.use('/sweets', sweetsRouter);
 apiRouter.use('/cart', cartRouter);
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/cartitems', cartItemsRouter)
