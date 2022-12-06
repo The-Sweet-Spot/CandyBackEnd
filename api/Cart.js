@@ -1,9 +1,8 @@
 const express = require("express");
 const { getAllBakedGoodsById } = require("../db/Bakery");
 const { getCandyById } = require("../db/Candy");
-const { createCart, updateCart, updateCartStatus, getAllCarts, } = require("../db/Cart");
-const { getCartByUserId } = require("../db/Cart");
-const { attachCartItemsToCart, getCartItemsByCartId } = require('../db/CartItems');
+const { createCart, updateCart, getCartByUserId, updateCartStatus, getAllCarts, getCartById, } = require("../db/Cart");
+const { attachCartItemsToCart, getCartItemsByCartId, fetchCartItemsByCartId } = require('../db/CartItems');
 const { requireUser } = require('./utilities')
 const cartRouter = express.Router();
 
@@ -50,11 +49,19 @@ console.log("Is this working", req.body)
 //         console.log(error)
 //     }
 // })
-cartRouter.post("/:cartItemsId", async (req, res, next) => {
+cartRouter.post("/add/:sweetsId", async (req, res, next) => {
     try {
+        const {sweetsId} = req.params
         const {cartId} = req.body
-        const fetchingCartItems = await attachCartItemsToCart(cartId)
-        res.send(fetchingCartItems) 
+        console.log("this is req.user", req.user.id, cart.usersId, cart)
+        if (req.user.id === cart.usersId){
+
+        const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId})
+        res.send(fetchingCartItems)
+    } else {
+            res.status(401).send({message: "You are IMPOSTER!"})
+        }
+    
     } catch (error) {
         console.error(error)
     }
