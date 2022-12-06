@@ -52,14 +52,13 @@ async function getCartByUserId(usersId) {
         const { rows: [cart] } = await client.query(`
         SELECT *
         FROM cart
-        WHERE "usersId"=$1;
+        WHERE "usersId"=$1 AND active=true;
         `, [usersId]
         );
         return cart
         
     } catch (error) {
-        console.error("Error getting cart by usersId: ")
-        console.log(log.error)
+        console.log(error)
 
         
     }

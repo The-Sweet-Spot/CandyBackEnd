@@ -49,23 +49,23 @@ console.log("Is this working", req.body)
 //         console.log(error)
 //     }
 // })
-cartRouter.post("/add/:sweetsId", async (req, res, next) => {
-    try {
-        const {sweetsId} = req.params
-        const {cartId} = req.body
-        console.log("this is req.user", req.user.id, cart.usersId, cart)
-        if (req.user.id === cart.usersId){
+// cartRouter.post("/add/:sweetsId", async (req, res, next) => {
+//     try {
+//         const {sweetsId} = req.params
+//         const {cartId, price_bought_at} = req.body
+//         console.log("this is req.user", req.user.id, cart.usersId, cart)
+//         if (req.user.id === cart.usersId){
 
-        const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId})
-        res.send(fetchingCartItems)
-    } else {
-            res.status(401).send({message: "You are IMPOSTER!"})
-        }
+//         const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId, price_bought_at})
+//         res.send(fetchingCartItems)
+//     } else {
+//             res.status(401).send({message: "You are IMPOSTER!"})
+//         }
     
-    } catch (error) {
-        console.error(error)
-    }
-})
+//     } catch (error) {
+//         console.error(error)
+//     }
+// })
 // usersId
 cartRouter.get("/:usersId", async (req, res, next) => {
     const { usersId } = req.params
