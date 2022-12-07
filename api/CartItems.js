@@ -43,8 +43,8 @@ cartItemsRouter.post("/add/:sweetsId", async (req, res, next) => {
     try {
         const {sweetsId} = req.params
         const {cartId, price_bought_at, usersId} = req.body
-        console.log("this is req.user", req.user.id, usersId)
-        if (req.user.id === usersId){
+        console.log("this is req.user", req.user.usersId, usersId)
+        if (req.user.usersId === usersId){
 
             const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId, price_bought_at})
             res.send(fetchingCartItems)
@@ -61,7 +61,7 @@ cartItemsRouter.delete("/:cartItemsId", async (req, res, next) => {
     try {
         const cartItems = await getCartItemsById(cartItemsId);
         const cart = await getCartById(cartItems.cartId);
-        if (req.user.id === cart.usersId) {
+        if (req.user.usersId === cart.usersId) {
             const removeItem = await destroyCartItems(cartItemsId);
             res.send(removeItem)
         } else {
