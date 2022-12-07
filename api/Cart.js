@@ -27,10 +27,7 @@ console.log("Is this working", req.body)
         const existingCart = await getCartByUserId(usersId,true);
         console.log("statement", existingCart.cartId)
         if(existingCart.cartId){
-            res.send({
-                name: "Existing Cart",
-                message: `Users cart ${usersId} already exist!`
-            })
+            res.send(existingCart)
         } else {
         const newCart = await createCart({
             usersId,
