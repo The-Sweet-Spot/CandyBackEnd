@@ -22,7 +22,7 @@ apiRouter.use(async (req, res, next) => {
                 if (verifiedData.id) {
                     
                     req.user = {
-                        id: verifiedData.id,
+                        usersId: verifiedData.id,
                         username: verifiedData.username
                     }
                     console.log("this is req.user", req.user)
