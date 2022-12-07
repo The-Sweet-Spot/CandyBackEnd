@@ -20,16 +20,17 @@ const { getCartById, getCartByUserId } = require('../db/Cart')
 //         console.error(error)
 //     }
 // })
-cartItemsRouter.get("/mycart", async (req, res, next) => {
+cartItemsRouter.get("/mycartitems", async (req, res, next) => {
     try {
         console.log("starting handler")
     
-        console.log("this is req.user", req.user.id)
-        const isUserWithCart = await getCartByUserId(req.user.id)
+        console.log("this is req.user", req.user.usersId)
+        const isUserWithCart = await getCartByUserId(req.user.usersId)
         console.log("is user with cart?", isUserWithCart)
-        if (req.user.id === isUserWithCart.usersId) {
+        if (req.user.usersId === isUserWithCart.usersId) {
         const getMyStuffInTheCart = await fetchCartItemsByCartId(isUserWithCart.cartId)
         console.log("Finish running function", isUserWithCart.cartId)
+        console.log("get stuff in the cart", getMyStuffInTheCart)
         res.send(getMyStuffInTheCart)
         } else {
             res.status(401).send({message: "You are IMPOSTER!"})

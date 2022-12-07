@@ -18,11 +18,11 @@ cartRouter.get("/", async (req, res, next) => {
 })
 
 // get cart 
-cartRouter.post("/:usersId", async (req, res, next) => {
+cartRouter.post("/mycart", async (req, res, next) => {
     // const { usersId, active } = req.body;
 console.log("Is this working", req.body)
     try {
-        const {usersId} = req.params
+        const {usersId} = req.user
         const active = true
         const existingCart = await getCartByUserId(usersId,true);
         console.log("statement", existingCart.cartId)
@@ -66,16 +66,16 @@ console.log("Is this working", req.body)
 //     }
 // })
 // usersId
-cartRouter.get("/:usersId", async (req, res, next) => {
-    const { usersId } = req.params
-    try {
-        const newCartId = await getCartByUserId (usersId)
-        res.send (newCartId)
+// cartRouter.get("/:usersId", async (req, res, next) => {
+//     const { usersId } = req.params
+//     try {
+//         const newCartId = await getCartByUserId (usersId)
+//         res.send (newCartId)
 
-    } catch (error) {
-        console.log(error)
-    }
-});
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 // build a patch route for updating the status
 cartRouter.patch("/updateCart", requireUser, async  (req, res, next) => {
     try {
