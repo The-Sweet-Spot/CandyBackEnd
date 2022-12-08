@@ -16,16 +16,24 @@ cartRouter.get("/", async (req, res, next) => {
         
     }
 })
-
+cartRouter.post("/newusercart", async (req, res, next) => {
+    try {
+        const {usersId, active} = req.body
+        const newCartForNewUser = await createCart({usersId, active})
+        res.send(newCartForNewUser)
+    } catch (error) {
+        console.log(error)
+    }
+})
 // get cart 
-cartRouter.post("/mycart", async (req, res, next) => {
+cartRouter.post("/myexsistingcart", async (req, res, next) => {
     // const { usersId, active } = req.body;
 console.log("Is this working", req.body)
     try {
         const {usersId} = req.user
         const active = true
         const existingCart = await getCartByUserId(usersId,true);
-        console.log("statement", existingCart.cartId)
+        console.log("statement", existingCart)
         if(existingCart.cartId){
             res.send(existingCart)
         } else {
