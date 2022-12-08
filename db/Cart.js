@@ -89,7 +89,7 @@ async function updateCartStatus(active, usersId) {
         `,
         [active, usersId]
     );
-
+        console.log("cart", cart)
     return cart;
 } catch (error) {
     console.error('Error Updating Cart Status! ');
