@@ -51,7 +51,8 @@ async function attachCartItemsToCart({cartId, sweetsId, price_bought_at}) {
     try {
         const { rows } = await client.query(`
         INSERT INTO cart_items("cartId", "sweetsId", price_bought_at)
-        VALUES($1, $2, $3);
+        VALUES($1, $2, $3)
+        RETURNING *;
         `, [cartId, sweetsId, price_bought_at])
         // const itemsInUsersCart = await getAllSweetProducts()
         // const bakedGoodsItems = itemsInUsersCart.filter(cartItem => {

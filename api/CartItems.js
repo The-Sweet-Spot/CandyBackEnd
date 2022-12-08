@@ -24,7 +24,7 @@ cartItemsRouter.get("/mycartitems", async (req, res, next) => {
     try {
         console.log("starting handler")
     
-        console.log("this is req.user", req.user.usersId)
+        console.log("this is req.user for cart itmes", req.user)
         const isUserWithCart = await getCartByUserId(req.user.usersId)
         console.log("is user with cart?", isUserWithCart)
         if (req.user.usersId === isUserWithCart.usersId) {
@@ -47,6 +47,7 @@ cartItemsRouter.post("/add/:sweetsId", async (req, res, next) => {
         if (req.user.usersId === usersId){
 
             const fetchingCartItems = await attachCartItemsToCart({sweetsId, cartId, price_bought_at})
+            console.log("fetchings cart items", fetchingCartItems)
             res.send(fetchingCartItems)
         } else {
             res.status(401).send({message: "You are IMPOSTER!"})

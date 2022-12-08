@@ -71,7 +71,7 @@ usersRouter.post("/register", async (req, res, next) => {
 
   try {
     const _user = await getUserByUsername(username);
-
+    console.log("from user DB", _user)
     if (_user) {
       console.log("I exist", _user)
       res.status(409).send({
