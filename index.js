@@ -39,7 +39,7 @@ app.use(express.urlencoded( { extended: false } ));
 //step 5: use next() to pass it
 // app.use(decryptJWT)
 app.use('/api', apiRouter);
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 client.connect();
 app.listen(PORT, () => {
     console.log(`We are now running on port ${PORT}`)

@@ -9,7 +9,7 @@ async function createCart ( { usersId, active } ) {
         RETURNING *;
         `, [usersId, active]
         );
-
+        console.log(" from cart DB", cart)
         return cart 
     } catch (error) {
         console.error("Error createCart: ")
@@ -49,12 +49,14 @@ async function updateCart (id, fields = {} ) {
 // FN: getCartByUsersId
 async function getCartByUserId(usersId) {
     try {
+        console.log("cartDB usersId", usersId)
         const { rows: [cart] } = await client.query(`
         SELECT *
         FROM cart
         WHERE "usersId"=$1 AND active=true;
         `, [usersId]
         );
+        console.log("cart DB", cart)
         return cart
         
     } catch (error) {

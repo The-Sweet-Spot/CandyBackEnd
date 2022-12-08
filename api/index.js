@@ -9,10 +9,11 @@ const {getUserById} = require('../db/Users')
 apiRouter.use(async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
+    console.log("this is req.header on indexAPI", req.header('Authorization'))
 
     if (!auth) { console.log("No auth")
             next();
-    } else if (auth.startsWith(prefix)) {
+    } else if (auth) {
         const token = auth.slice(prefix.length);
         console.log("We have Auth", token)
         console.log("this is the secret", JWT_SECRET)
