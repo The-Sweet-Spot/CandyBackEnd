@@ -62,8 +62,8 @@ cartItemsRouter.delete("/:cartItemsId", async (req, res, next) => {
         const cartItems = await getCartItemsById(cartItemsId);
         const cart = await getCartById(cartItems.cartId);
         if (req.user.usersId === cart.usersId) {
-            const removeItem = await destroyCartItems(cartItemsId);
-            res.send(removeItem)
+            const success = await destroyCartItems(cartItemsId);
+            res.send({success})
         } else {
             next({message: "Error: Please login to remove from cart"})
         }

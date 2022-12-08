@@ -162,10 +162,12 @@ async function getCartItemsById(cartItemsId) {
 }
 async function destroyCartItems(cartItemsId) {
     try {
-        await client.query(`
+        const {rows: [item], rowCount} = await client.query(`
         DELETE FROM "cart_items"
-        WHERE "cartItemsId"=$1;
+        WHERE "cartItemsId"=$1
+        RETURNING *;
         `, [cartItemsId])
+        return [item, rowCount]
     } catch (error) {
         console.log(error)
     }
