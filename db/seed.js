@@ -645,7 +645,7 @@ async function createInitialCartItems() {
         await createCartItem({
             cartId: 1,
             sweetsId: 55,
-            price_bought_at: 5.00
+            price_bought_at: 4.69
         });
         await createCartItem({
             cartId: 3,
@@ -656,24 +656,24 @@ async function createInitialCartItems() {
         await createCartItem({
             cartId: 1,
             sweetsId: 45,
-            price_bought_at: 5.00
+            price_bought_at: 3.99
         });
         // 5
         await createCartItem({
             cartId: 2,
             sweetsId: 21,
-            price_bought_at: 5.00
+            price_bought_at: 3.50
         });
         // 6
         await createCartItem({
             cartId: 3,
             sweetsId: 25,
-            price_bought_at: 5.00
+            price_bought_at: 45.00
         });
         await createCartItem({
             cartId: 2,
             sweetsId: 45,
-            price_bought_at: 5.00
+            price_bought_at: 3.99
         });
         console.log("Finished creating cart items")
     } catch (error) {
